@@ -1,12 +1,12 @@
 # 汉语拼音音节表（声母 × 韵母）
 
 | 声母 \ 韵母 | a   | o   | e   | ai   | ei   | ao   | ou   | an   | en   | ang   | eng   | er  | i   | ia  | ie  | iao  | iu  | ian  | in   | iang  | ing  | iong  | u   | ua   | uo   | uai   | ui   | uan   | un   | uang   | ong   | ü   | üe  | üan  | ün  |
-| ----------- | --- | --- | --- | ---- | ---- | ---- | ---- | ---- | ---- | ----- | ----- | --- | --- | --- | --- | ---- | --- | ---- | ---- | ----- | ---- | ----- | --- | ---- | ---- | ----- | ---- | ----- | ---- | ------ | ----- | --- | --- | ---- | --- | --- |
+| ----------- | --- | --- | --- | ---- | ---- | ---- | ---- | ---- | ---- | ----- | ----- | --- | --- | --- | --- | ---- | --- | ---- | ---- | ----- | ---- | ----- | --- | ---- | ---- | ----- | ---- | ----- | ---- | ------ | ----- | --- | --- | ---- | --- |
 | Ø           | a   | o   | e   | ai   | ei   | ao   | ou   | an   | en   | ang   | eng   | er  | yi  | ya  | ye  | yao  | you | yan  | yin  | yang  | ying | yong  | wu  | wa   | wo   | wai   | wei  | wan   | wen  | wang   | weng  | yu  | yue | yuan | yun |
 | b           | ba  | bo  |     | bai  | bei  | bao  |      | ban  | ben  | bang  | beng  |     | bi  |     | bie | biao |     | bian | bin  |       | bing |       | bu  |      |      |       |      |       |      |        |       |     |     |      |     |
 | p           | pa  | po  |     | pai  | pei  | pao  | pou  | pan  | pen  | pang  | peng  |     | pi  |     | pie | piao |     | pian | pin  |       | ping |       | pu  |      |      |       |      |       |      |        |       |     |     |      |     |
 | m           | ma  | mo  | me  | mai  | mei  | mao  | mou  | man  | men  | mang  | meng  |     | mi  |     | mie | miao | miu | mian | min  |       | ming |       | mu  |      |      |       |      |       |      |        |       |     |     |      |     |
-| f           | fa  | fo  |     |      | fei  |      | fou  | fan  | fen  | fang  | feng  |     |     |     |     |      |     |      |      |       |      |       | fu  |      |      |       |      |       |      |        |       |     |     |      |     |     |
+| f           | fa  | fo  |     |      | fei  |      | fou  | fan  | fen  | fang  | feng  |     |     |     |     |      |     |      |      |       |      |       | fu  |      |      |       |      |       |      |        |       |     |     |      |     |
 | d           | da  |     | de  | dai  | dei  | dao  | dou  | dan  | den  | dang  | deng  |     | di  | dia | die | diao | diu | dian | ding |       | ding |       | du  |      | duo  |       | dui  | duan  | dun  |        | dong  |     |     |      |     |
 | t           | ta  |     | te  | tai  |      | tao  | tou  | tan  |      | tang  | teng  |     | ti  |     | tie | tiao |     | tian | ting |       | ting |       | tu  |      | tuo  |       | tui  | tuan  | tun  |        | tong  |     |     |      |     |
 | n           | na  |     | ne  | nai  | nei  | nao  | nou  | nan  | nen  | nang  | neng  |     | ni  |     | nie | niao | niu | nian | nin  | niang | ning |       | nu  |      | nuo  |       |      | nuan  | nun  |        | nong  | nü  | nüe |      |     |
@@ -66,6 +66,9 @@ i i 一 乙
 ou o 斗 口又
 u u 土 入不无午勿兀五户互刍出主父夫古木目
 ü v 于云曰女与玉予巨去曲区元
+
+---
+
 an a n |ang a g
 en e n |eng e g  
 ia i aa |iao i ao
