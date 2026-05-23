@@ -1,0 +1,33 @@
+{
+  "name": "invnz",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.32.1",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && cp -r src/data/*.json5 dist/data/",
+    "release": "bumpp -no-push && nr build && pnpm publish",
+    "invnz": "esno dist/cli.js",
+    "start": "esno src/main.ts",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "up": "taze major -I"
+  },
+  "dependencies": {
+    "json5": "^2.2.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.0.0",
+    "@antfu/ni": "^30.1.0",
+    "@types/node": "^25.9.1",
+    "bumpp": "^11.1.0",
+    "eslint": "^10.4.0",
+    "eslint-plugin-format": "^2.0.1",
+    "esno": "^4.8.0",
+    "taze": "^19.13.0"
+  }
+}

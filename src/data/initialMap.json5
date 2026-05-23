@@ -1,0 +1,34 @@
+{
+  // 声母映射表 - Initial consonants
+  
+  // 唇音 - Labial consonants
+  b: "b",        // [b] → [b]
+  p: "p",        // [p] → [p]
+  m: "m",        // [m] → [m]
+  f: "f",        // [f] → [f]
+  
+  // 齿音 - Dental consonants
+  d: "d",        // [d] → [d]
+  t: "t",        // [t] → [t]
+  n: "n",        // [n] → [n]
+  l: "l",        // [l] → [l]
+  
+  // 舌根音 - Velar consonants
+  g: "g",        // [g] → [g]
+  k: "k",        // [k] → [k]
+  h: "h",        // [h] → [h]
+  
+  // 舌面音 - Palatal consonants
+  j: "j",        // [j] → [j]
+  q: "q",        // [q] → [q]
+  x: "x",        // [x] → [x]
+  
+  // 舌尖音 - Apical consonants
+  zh: "zh",      // [zh] → [zh]
+  ch: "ch",      // [ch] → [ch]
+  sh: "sh",      // [sh] → [sh]
+  r: "r",        // [r] → [r]
+  z: "z",        // [z] → [z]
+  c: "c",        // [c] → [c]
+  s: "s",        // [s] → [s]
+}

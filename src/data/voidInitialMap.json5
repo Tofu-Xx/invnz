@@ -1,0 +1,13 @@
+{
+  // 零声母处理映射表 - Void initial (no initial consonant) transformation
+  // 处理拼音中没有声母的情况
+  
+  weng: "ong",   // [weng] → [ong]
+  wen: "un",     // [wen] → [un]
+  wei: "ui",     // [wei] → [ui]
+  wu: "u",       // [wu] → [u]
+  yi: "i",       // [yi] → [i]
+  yu: "ü",       // [yu] → [ü]
+  y: "i",        // [y] → [i]
+  w: "u",        // [w] → [u]
+}
