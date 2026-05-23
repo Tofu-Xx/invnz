@@ -11,6 +11,8 @@ function match<T extends Record<string, string>>(
 }
 
 export function pinyin2pinin(pinyin: string) {
+  // v 替换为 ü
+  pinyin = pinyin.replace(/v/g, 'ü')
   // ✅ 1. 零声母处理（只匹配一次）
   const voidKey = match(pinyin, voidInitialMap)
   if (voidKey) {

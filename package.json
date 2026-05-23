@@ -9,9 +9,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && cp -r src/ dist/",
     "release": "bumpp -no-push && nr build && pnpm publish",
-    "invnz": "esno dist/cli.js",
+    "invnz": "esno src/cli.js",
     "start": "esno src/main.ts",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
