@@ -60,5 +60,9 @@ export function pinin2invnzChars(pinin: string) {
   }
 
   result[result.length - 1] = result[result.length - 1]?.at(-1)
+  // 如果最后一个字符是“一”，将第一个项的首字符替换为“⿱”
+  if (result.at(-1) === '一' && typeof result[0] === 'string' && result[0].length > 0) {
+    result[0] = `⿱${result[0].slice(1)}`
+  }
   return result.filter(Boolean).join('')
 }
