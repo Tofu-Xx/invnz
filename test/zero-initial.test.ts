@@ -1,46 +1,47 @@
 /**
- * 零声母拼音（含 y/w/ü 开头的介音，不含 you）。
- * 全部 34 条，由 scripts/gen-test-data.ts 自动生成，勿手动修改。
+ * 零声母拼音（含 y/w/ü 开头的介音）。
+ * 由 scripts/gentest.ts 自动生成，勿手动修改。
  */
 
 import { describe, expect, it } from 'vitest'
 import { pinin2invnzChars, pinyin2pinin } from '../src/main'
 
 const DATA: [string, string, string][] = [
-  ['a', 'aa', '八'],
-  ['o', 'ee', '么'],
-  ['e', 'ee', '么'],
+  ['yi', 'i', '一'],
+  ['wu', 'u', '土'],
+  ['yu', 'v', '女'],
   ['ai', 'a', '才'],
   ['ei', 'e', '贝'],
-  ['ao', 'ao', '刀'],
   ['ou', 'o', '斗'],
-  ['an', 'an', '⿵冂才'],
-  ['en', 'en', '⿵冂贝'],
-  ['ang', 'ag', '⿹勹才'],
-  ['eng', 'eg', '⿹勹贝'],
+  ['a', 'aa', '八'],
+  ['o', 'oo', '乇'],
+  ['e', 'ee', '么'],
+  ['ao', 'ao', '刀'],
   ['er', 'er', '耳'],
-  ['yi', 'i', '一'],
-  ['ya', 'iaa', '⿱一八'],
+  ['en', 'n', '牛'],
+  ['eng', 'g', '工'],
   ['ye', 'ia', '⿱一才'],
+  ['you', 'io', '⿱一斗'],
+  ['ya', 'iaa', '⿱一八'],
   ['yao', 'iao', '⿱一刀'],
-  ['yan', 'ian', '⿱一⿵冂才'],
-  ['yin', 'in', '⿱冂一'],
-  ['yang', 'iag', '⿱一⿹勹才'],
-  ['ying', 'ig', '⿱勹一'],
-  ['yong', 'iug', '⿱一⿹勹土'],
-  ['wu', 'u', '土'],
-  ['wa', 'uaa', '⿱土八'],
-  ['wo', 'uee', '⿱土么'],
   ['wai', 'ua', '⿱土才'],
   ['wei', 'ue', '⿱土贝'],
-  ['wan', 'uan', '⿱土⿵冂才'],
-  ['wen', 'un', '⿵冂土'],
-  ['wang', 'uag', '⿱土⿹勹才'],
-  ['weng', 'ug', '⿹勹土'],
-  ['yu', 'v', '女'],
+  ['wa', 'uaa', '⿱土八'],
+  ['wo', 'uoo', '⿱土乇'],
   ['yue', 'va', '⿱女才'],
-  ['yuan', 'van', '⿱女⿵冂才'],
+  ['yin', 'in', '⿱冂一'],
+  ['ying', 'ig', '⿱勹一'],
+  ['wen', 'un', '⿵冂土'],
+  ['weng', 'ug', '⿹勹土'],
   ['yun', 'vn', '⿵冂女'],
+  ['an', 'an', '⿵冂才'],
+  ['ang', 'ag', '⿹勹才'],
+  ['yan', 'ian', '⿱一⿵冂才'],
+  ['yang', 'iag', '⿱一⿹勹才'],
+  ['yong', 'iug', '⿱一⿹勹土'],
+  ['wan', 'uan', '⿱土⿵冂才'],
+  ['wang', 'uag', '⿱土⿹勹才'],
+  ['yuan', 'van', '⿱女⿵冂才'],
 ]
 
 describe('零声母', () => {

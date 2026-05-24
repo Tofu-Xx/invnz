@@ -1,64 +1,54 @@
 /**
  * j、q、x 声母拼音。
- *
- * 特殊规则：
- *   pinin 阶段 j/q/x 后的 i 被省略（如 ji → j, jia → jaa）
- *   j/q/x 后的 u 转为 ü（如 ju → jv, jun → jvn）
- *
- * 全部 42 条。由 scripts/gen-test-data.ts 自动生成，勿手动修改。
+ * 由 scripts/gentest.ts 自动生成，勿手动修改。
  */
 
 import { describe, expect, it } from 'vitest'
 import { pinin2invnzChars, pinyin2pinin } from '../src/main'
 
 const DATA: [string, string, string][] = [
-  // ── j ──
-  ['ji', 'j', '久'],
-  ['jia', 'jaa', '⿱久八'],
-  ['jie', 'ja', '⿱久才'],
-  ['jiao', 'jao', '⿱久刀'],
-  ['jiu', 'jo', '⿱久斗'],
-  ['jian', 'jan', '⿱久⿵冂才'],
-  ['jin', 'jn', '⿵冂久'],
-  ['jiang', 'jag', '⿱久⿹勹才'],
-  ['jing', 'jg', '⿹勹久'],
-  ['jiong', 'jug', '⿱久⿹勹土'],
+  ['ji', 'ji', '⿱久一'],
+  ['qi', 'qi', '⿱七一'],
+  ['xi', 'xi', '⿱忄一'],
   ['ju', 'jv', '⿱久女'],
-  ['jue', 'jva', '⿱久⿱女才'],
-  ['juan', 'jvan', '⿱久⿱女⿵冂才'],
-  ['jun', 'jvn', '⿱久⿵冂女'],
-
-  // ── q ──
-  ['qi', 'q', '七'],
-  ['qia', 'qaa', '⿰七八'],
-  ['qie', 'qa', '⿰七才'],
-  ['qiao', 'qao', '⿰七刀'],
-  ['qiu', 'qo', '⿰七斗'],
-  ['qian', 'qan', '⿰七⿵冂才'],
-  ['qin', 'qn', '⿵冂七'],
-  ['qiang', 'qag', '⿰七⿹勹才'],
-  ['qing', 'qg', '⿹勹七'],
-  ['qiong', 'qug', '⿰七⿹勹土'],
   ['qu', 'qv', '⿰七女'],
-  ['que', 'qva', '⿰七⿱女才'],
-  ['quan', 'qvan', '⿰七⿱女⿵冂才'],
-  ['qun', 'qvn', '⿰七⿵冂女'],
-
-  // ── x ──
-  ['xi', 'x', '忄'],
-  ['xia', 'xaa', '⿰忄八'],
-  ['xie', 'xa', '⿰忄才'],
-  ['xiao', 'xao', '⿰忄刀'],
-  ['xiu', 'xo', '⿰忄斗'],
-  ['xian', 'xan', '⿰忄⿵冂才'],
-  ['xin', 'xn', '⿵冂忄'],
-  ['xiang', 'xag', '⿰忄⿹勹才'],
-  ['xing', 'xg', '⿹勹忄'],
-  ['xiong', 'xug', '⿰忄⿹勹土'],
   ['xu', 'xv', '⿰忄女'],
+  ['jie', 'jia', '⿱久⿱一才'],
+  ['qie', 'qia', '⿰七⿱一才'],
+  ['xie', 'xia', '⿰忄⿱一才'],
+  ['jiu', 'jio', '⿱久⿱一斗'],
+  ['qiu', 'qio', '⿰七⿱一斗'],
+  ['xiu', 'xio', '⿰忄⿱一斗'],
+  ['jia', 'jiaa', '⿱久⿱一八'],
+  ['qia', 'qiaa', '⿰七⿱一八'],
+  ['xia', 'xiaa', '⿰忄⿱一八'],
+  ['jiao', 'jiao', '⿱久⿱一刀'],
+  ['qiao', 'qiao', '⿰七⿱一刀'],
+  ['xiao', 'xiao', '⿰忄⿱一刀'],
+  ['jue', 'jva', '⿱久⿱女才'],
+  ['que', 'qva', '⿰七⿱女才'],
   ['xue', 'xva', '⿰忄⿱女才'],
-  ['xuan', 'xvan', '⿰忄⿱女⿵冂才'],
+  ['jin', 'jin', '⿱久⿵冂一'],
+  ['qin', 'qin', '⿱七⿵冂一'],
+  ['xin', 'xin', '⿱忄⿵冂一'],
+  ['jing', 'jig', '⿱久⿹勹一'],
+  ['qing', 'qig', '⿱七⿹勹一'],
+  ['xing', 'xig', '⿱忄⿹勹一'],
+  ['jun', 'jvn', '⿱久⿵冂女'],
+  ['qun', 'qvn', '⿰七⿵冂女'],
   ['xun', 'xvn', '⿰忄⿵冂女'],
+  ['jian', 'jian', '⿱久⿱一⿵冂才'],
+  ['qian', 'qian', '⿰七⿱一⿵冂才'],
+  ['xian', 'xian', '⿰忄⿱一⿵冂才'],
+  ['jiang', 'jiag', '⿱久⿱一⿹勹才'],
+  ['qiang', 'qiag', '⿰七⿱一⿹勹才'],
+  ['xiang', 'xiag', '⿰忄⿱一⿹勹才'],
+  ['jiong', 'jiug', '⿱久⿱一⿹勹土'],
+  ['qiong', 'qiug', '⿰七⿱一⿹勹土'],
+  ['xiong', 'xiug', '⿰忄⿱一⿹勹土'],
+  ['juan', 'jvan', '⿱久⿱女⿵冂才'],
+  ['quan', 'qvan', '⿰七⿱女⿵冂才'],
+  ['xuan', 'xvan', '⿰忄⿱女⿵冂才'],
 ]
 
 describe('j q x', () => {

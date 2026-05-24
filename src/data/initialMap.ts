@@ -16,7 +16,9 @@ export const initialMap = {
   j: 'j',
   q: 'q',
   x: 'x',
+  // readable:{
 
+  // }
   zh: 'zh',
   ch: 'ch',
   sh: 'sh',
