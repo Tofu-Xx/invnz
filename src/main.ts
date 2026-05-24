@@ -25,10 +25,13 @@ export function pinyin2pinin(pinyin: string) {
   // ✅ 3. 韵母提取（严格前缀截断）
   const finalKey = pinyin.slice(initialKey.length)
 
-  /* jqx不用i */
+  /* jqx后面u实质上是ü */
   const pininInitial = initialMap[initialKey as keyof typeof initialMap] ?? ''
   const pininFinal = /^[jqx]$/.test(pininInitial)
-    ? finalMap[finalKey as keyof typeof finalMap].replace(/^i/, '') // 第一个字符是i的话就删除
+    ? (() => {
+        const key = finalKey.startsWith('u') ? `ü${finalKey.slice(1)}` : finalKey
+        return finalMap[key as keyof typeof finalMap]
+      })()
     : finalMap[finalKey as keyof typeof finalMap] ?? ''
 
   /* pinin */
@@ -61,7 +64,7 @@ export function pinin2invnzChars(pinin: string) {
 
   result[result.length - 1] = result[result.length - 1]?.at(-1)
   // 如果最后一个字符是“一”，将第一个项的首字符替换为“⿱”
-  if (result.at(-1) === '一' && typeof result[0] === 'string' && result[0].length > 0) {
+  if (result.at(-1) === '一' && typeof result[0] === 'string' && result[0].length > 1) {
     result[0] = `⿱${result[0].slice(1)}`
   }
   return result.filter(Boolean).join('')

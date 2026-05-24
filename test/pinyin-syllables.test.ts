@@ -4,7 +4,7 @@
  * 从 README 第 3–26 行的声母 × 韵母表格中提取所有合法拼音组合，
  * 逐条验证 pinyin2pinin → pinin2invnzChars 整条管线不报错且输出非空。
  *
- * 注意：you / jue / que / xue 当前源码暂无法处理，未包含在列表中。
+ * 注意：you 当前源码暂无法处理，未包含在列表中。
  */
 
 import { describe, test, expect } from 'vitest'
@@ -71,15 +71,15 @@ const VALID_PINYIN: readonly string[] = [
 
   // ── j ──
   'ji', 'jia', 'jie', 'jiao', 'jiu', 'jian', 'jin', 'jiang', 'jing', 'jiong',
-  'ju', 'juan', 'jun',
+  'ju', 'jue', 'juan', 'jun',
 
   // ── q ──
   'qi', 'qia', 'qie', 'qiao', 'qiu', 'qian', 'qin', 'qiang', 'qing', 'qiong',
-  'qu', 'quan', 'qun',
+  'qu', 'que', 'quan', 'qun',
 
   // ── x ──
   'xi', 'xia', 'xie', 'xiao', 'xiu', 'xian', 'xin', 'xiang', 'xing', 'xiong',
-  'xu', 'xuan', 'xun',
+  'xu', 'xue', 'xuan', 'xun',
 
   // ── zh ──
   'zha', 'zhe', 'zhai', 'zhei', 'zhao', 'zhou', 'zhan', 'zhen', 'zhang', 'zheng',

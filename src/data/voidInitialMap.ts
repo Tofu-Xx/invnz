@@ -5,6 +5,7 @@ export const voidInitialMap = {
   wu: "u",
   yi: "i",
   yu: "ü",
+  yü: "ü",
   y: "i",
   w: "u",
 } as const
