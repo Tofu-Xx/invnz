@@ -1,23 +1,31 @@
 {
   "name": "invnz",
+  "type": "module",
   "version": "1.0.0",
   "packageManager": "pnpm@10.32.1",
-  "description": "",
+  "description": "Convert pinyin to CJK-component-based representation",
   "author": "",
   "license": "MIT",
-  "keywords": [],
-  "main": "index.js",
+  "keywords": ["pinyin", "hanzi", "cjk"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "release": "bumpp -no-push && nr build && pnpm publish",
-    "invnz": "esno src/cli.js",
-    "start": "esno src/main.ts",
+    "invnz": "esno src/cli.ts",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "up": "taze major -I"
-  },
-  "dependencies": {
-    "json5": "^2.2.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.0.0",
@@ -28,6 +36,10 @@
     "eslint-plugin-format": "^2.0.1",
     "esno": "^4.8.0",
     "taze": "^19.13.0",
+    "tsup": "^8.5.1",
     "typescript": "^6.0.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
   }
 }

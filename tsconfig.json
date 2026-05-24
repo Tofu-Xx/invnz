@@ -4,9 +4,6 @@
     "lib": ["DOM", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
     "resolveJsonModule": true,
     "types": [
       "node"
@@ -14,6 +11,7 @@
     "allowJs": true,
     "strict": true,
     "strictNullChecks": true,
+    "ignoreDeprecations": "6.0",
     "noEmit": true,
     "outDir": "dist",
     "esModuleInterop": true,
