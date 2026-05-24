@@ -8,13 +8,13 @@ import { pinin2invnzChars, pinyin2pinin } from '../src/main'
 
 const DATA: [string, string, string][] = [
   // i (前)
-  ['zhi', 'zhi', '⿱止一'],
-  ['chi', 'chi', '⿱厂一'],
-  ['shi', 'shi', '⿱山一'],
-  ['ri', 'ri', '⿱日一'],
-  ['zi', 'zi', '⿱子一'],
-  ['ci', 'ci', '⿱艹一'],
-  ['si', 'si', '⿱纟一'],
+  ['zhi', 'zh', '止'],
+  ['chi', 'ch', '厂'],
+  ['shi', 'sh', '山'],
+  ['ri', 'r', '日'],
+  ['zi', 'z', '子'],
+  ['ci', 'c', '艹'],
+  ['si', 's', '纟'],
   // u (前)
   ['zhu', 'zhu', '⿰止土'],
   ['chu', 'chu', '⿸厂土'],

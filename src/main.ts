@@ -27,11 +27,20 @@ export function pinyin2pinin(pinyin: string) {
     pinyin = voidInitialMap[voidKey] + pinyin.slice(voidKey.length)
   }
   // 声母匹配（最长匹配原则，如 "zh" > "z"、"ch" > "c"），匹配失败时空字符串
-  const initialKey = match(pinyin, initialMap) ?? ''
+  const initialUnreadable = match(pinyin, initialMap.unreadable) ?? ''
+  const initialReadable = match(pinyin, initialMap.readable) ?? ''
+  const isReadable = initialReadable.length > initialUnreadable.length
+  const initialKey = isReadable ? initialReadable : initialUnreadable
   // 韵母部分：声母之后的剩余子串（紧接后缀截断，无二次匹配消耗）
   const finalKey = pinyin.slice(initialKey.length)
+  // 可读声母（zh ch sh r z c s）后跟 i 时，i 非真实元音，直接以声母自身输出
+  if (isReadable && finalKey === 'i') {
+    return initialMap.readable[initialKey as keyof typeof initialMap.readable]
+  }
   // 声母的 pinin 映射值（查 initialMap，绝大多数与 key 相同，仅做类型统一）
-  const pininInitial = initialMap[initialKey as keyof typeof initialMap] ?? ''
+  const pininInitial = initialMap.unreadable[initialKey as keyof typeof initialMap.unreadable]
+    ?? initialMap.readable[initialKey as keyof typeof initialMap.readable]
+    ?? ''
   // 韵母的 pinin 映射值：需处理 jqx 后 u→ü 的特殊音变
   const pininFinal = /^[jqx]$/.test(pininInitial)
     // jqx 后方实际发 ü 音，将 key 中开头的 u 替换为 ü 再查 finalMap

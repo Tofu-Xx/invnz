@@ -1,29 +1,30 @@
 export const initialMap = {
-  b: 'b',
-  p: 'p',
-  m: 'm',
-  f: 'f',
+  unreadable: {
+    b: 'b',
+    p: 'p',
+    m: 'm',
+    f: 'f',
 
-  d: 'd',
-  t: 't',
-  n: 'n',
-  l: 'l',
+    d: 'd',
+    t: 't',
+    n: 'n',
+    l: 'l',
 
-  g: 'g',
-  k: 'k',
-  h: 'h',
+    g: 'g',
+    k: 'k',
+    h: 'h',
 
-  j: 'j',
-  q: 'q',
-  x: 'x',
-  // readable:{
-
-  // }
-  zh: 'zh',
-  ch: 'ch',
-  sh: 'sh',
-  r: 'r',
-  z: 'z',
-  c: 'c',
-  s: 's',
+    j: 'j',
+    q: 'q',
+    x: 'x',
+  },
+  readable: {
+    zh: 'zh',
+    ch: 'ch',
+    sh: 'sh',
+    r: 'r',
+    z: 'z',
+    c: 'c',
+    s: 's',
+  },
 } as const
