@@ -31,7 +31,7 @@
     "invnz": "esno scripts/invnz.ts",
     "gentest": "esno scripts/gentest.ts",
     "test": "vitest run",
-    "test:fail": "vitest run --reporter=./scripts/expected-only-reporter.ts",
+    "test:fail": "vitest run --reporter=./scripts/reporter.ts",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "up": "taze major -I"
