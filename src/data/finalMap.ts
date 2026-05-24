@@ -1,40 +1,45 @@
 export const finalMap = {
-  ai: 'a',
-  ei: 'e',
-  ou: 'o',
+  /* 前 */
   i: 'i',
   u: 'u',
   ü: 'v',
+  /* 本 */
+  ai: 'a',
+  ei: 'e',
+  ou: 'o',
   a: 'aa',
-  ao: 'ao',
+  o: 'oo',
   e: 'ee',
+  ao: 'ao',
   er: 'er',
-
-  an: 'an',
-  ang: 'ag',
+  /* 尾 */
   en: 'n',
   eng: 'g',
-
+  /* 前本 */
+  ie: 'ia',
+  iu: 'io',
   ia: 'iaa',
   iao: 'iao',
-  ie: 'ia',
-  in: 'in',
-  ing: 'ig',
-  iu: 'io',
-  ong: 'ug',
-  ua: 'uaa',
-  uo: 'uee',
-  o: 'ee',
   uai: 'ua',
   ui: 'ue',
-  un: 'un',
+  ua: 'uaa',
+  uo: 'uoo',
   üe: 'va',
+  /* 前尾 */
+  in: 'in',
+  ing: 'ig',
+  un: 'un',
+  ong: 'ug',
   ün: 'vn',
-
+  /* 本尾 */
+  an: 'an',
+  ang: 'ag',
+  /* 前本尾 */
   ian: 'ian',
   iang: 'iag',
   iong: 'iug',
   uan: 'uan',
   uang: 'uag',
   üan: 'van',
+
 } as const

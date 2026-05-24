@@ -59,7 +59,7 @@ g 勹 丰成正争丞风(𠘨)
 a aa 八 丫大发马
 ai a 才 亥乃开
 ao ao 刀 丂幺毛
-o/e ee 卜 车舌者火末么禾呙
+e ee 卜 车舌者火末么禾呙
 ei e 贝 耒卫未韦内
 er er 耳 儿而
 i i 一 乙  
@@ -76,7 +76,7 @@ in i n |ing i g
 ie i a |iu i o
 ua u aa |ui u e
 uai u a |ong u g
-un u n |uo u ee
+un u n |uo/o u ee
 ün v n |üe v a
 ian i a n |iang i a g
 uan u a n |uang u a g
