@@ -6,7 +6,11 @@
   "description": "Convert pinyin to CJK-component-based representation",
   "author": "",
   "license": "MIT",
-  "keywords": ["pinyin", "hanzi", "cjk"],
+  "keywords": [
+    "pinyin",
+    "hanzi",
+    "cjk"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -17,12 +21,15 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "release": "bumpp -no-push && nr build && pnpm publish",
     "invnz": "esno src/cli.ts",
+    "test": "vitest run",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "up": "taze major -I"
@@ -37,9 +44,12 @@
     "esno": "^4.8.0",
     "taze": "^19.13.0",
     "tsup": "^8.5.1",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
