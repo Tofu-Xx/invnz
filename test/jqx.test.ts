@@ -37,12 +37,12 @@ const DATA: [string, string, string][] = [
   ['xue', 'xva', '⿰忄⿱女才'],
   // in (前尾)
   ['jin', 'jin', '⿱久⿵冂一'],
-  ['qin', 'qin', '⿱七⿵冂一'],
-  ['xin', 'xin', '⿱忄⿵冂一'],
+  ['qin', 'qin', '⿰七⿵冂一'],
+  ['xin', 'xin', '⿰忄⿵冂一'],
   // ing (前尾)
   ['jing', 'jig', '⿱久⿹勹一'],
-  ['qing', 'qig', '⿱七⿹勹一'],
-  ['xing', 'xig', '⿱忄⿹勹一'],
+  ['qing', 'qig', '⿰七⿹勹一'],
+  ['xing', 'xig', '⿰忄⿹勹一'],
   // ün (前尾)
   ['jun', 'jvn', '⿱久⿵冂女'],
   ['qun', 'qvn', '⿰七⿵冂女'],

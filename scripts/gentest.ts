@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { pinyin2pinin, pinin2invnzChars } from '../src/main'
 import { finalMap } from '../src/data'
+import { pinin2invnzChars, pinyin2pinin } from '../src/main'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const TEST_DIR = path.resolve(__dirname, '../test')
@@ -10,15 +10,41 @@ const TEST_DIR = path.resolve(__dirname, '../test')
 const FINAL_ORDER = Object.keys(finalMap)
 
 const FINAL_COMMENT: Record<string, string> = {
-  i: '前', u: '前', ü: '前',
-  ai: '本', ei: '本', ou: '本', a: '本', o: '本', e: '本', ao: '本', er: '本',
-  en: '尾', eng: '尾',
-  ie: '前本', iu: '前本', ia: '前本', iao: '前本',
-  uai: '前本', ui: '前本', ua: '前本', uo: '前本', üe: '前本',
-  in: '前尾', ing: '前尾', un: '前尾', ong: '前尾', ün: '前尾',
-  an: '本尾', ang: '本尾',
-  ian: '前本尾', iang: '前本尾', iong: '前本尾',
-  uan: '前本尾', uang: '前本尾', üan: '前本尾',
+  i: '前',
+  u: '前',
+  ü: '前',
+  ai: '本',
+  ei: '本',
+  ou: '本',
+  a: '本',
+  o: '本',
+  e: '本',
+  ao: '本',
+  er: '本',
+  en: '尾',
+  eng: '尾',
+  ie: '前本',
+  iu: '前本',
+  ia: '前本',
+  iao: '前本',
+  uai: '前本',
+  ui: '前本',
+  ua: '前本',
+  uo: '前本',
+  üe: '前本',
+  in: '前尾',
+  ing: '前尾',
+  un: '前尾',
+  ong: '前尾',
+  ün: '前尾',
+  an: '本尾',
+  ang: '本尾',
+  ian: '前本尾',
+  iang: '前本尾',
+  iong: '前本尾',
+  uan: '前本尾',
+  uang: '前本尾',
+  üan: '前本尾',
 }
 
 function sortKey(finalCol: string): number {
@@ -27,19 +53,48 @@ function sortKey(finalCol: string): number {
 }
 
 const ZERO_INITIAL: Record<string, string> = {
-  a: 'a', o: 'o', e: 'e', ai: 'ai', ei: 'ei', ao: 'ao', ou: 'ou',
-  an: 'an', en: 'en', ang: 'ang', eng: 'eng', er: 'er',
-  i: 'yi', ia: 'ya', ie: 'ye', iao: 'yao', iu: 'you',
-  ian: 'yan', in: 'yin', iang: 'yang', ing: 'ying', iong: 'yong',
-  u: 'wu', ua: 'wa', uo: 'wo', uai: 'wai', ui: 'wei',
-  uan: 'wan', un: 'wen', uang: 'wang', ong: 'weng',
-  ü: 'yu', üe: 'yue', üan: 'yuan', ün: 'yun',
+  a: 'a',
+  o: 'o',
+  e: 'e',
+  ai: 'ai',
+  ei: 'ei',
+  ao: 'ao',
+  ou: 'ou',
+  an: 'an',
+  en: 'en',
+  ang: 'ang',
+  eng: 'eng',
+  er: 'er',
+  i: 'yi',
+  ia: 'ya',
+  ie: 'ye',
+  iao: 'yao',
+  iu: 'you',
+  ian: 'yan',
+  in: 'yin',
+  iang: 'yang',
+  ing: 'ying',
+  iong: 'yong',
+  u: 'wu',
+  ua: 'wa',
+  uo: 'wo',
+  uai: 'wai',
+  ui: 'wei',
+  uan: 'wan',
+  un: 'wen',
+  uang: 'wang',
+  ong: 'weng',
+  ü: 'yu',
+  üe: 'yue',
+  üan: 'yuan',
+  ün: 'yun',
 }
 
 const JQX_FINALS = ['i', 'ia', 'ie', 'iao', 'iu', 'ian', 'in', 'iang', 'ing', 'iong', 'ü', 'üe', 'üan', 'ün']
 
 function pinyinFor(initial: string, final: string): string {
-  if (initial === 'Ø') return ZERO_INITIAL[final]
+  if (initial === 'Ø')
+    return ZERO_INITIAL[final]
   const p = initial + final
   if ('jqx'.includes(initial) && final.startsWith('ü')) {
     return initial + final.replace('ü', 'u')
@@ -59,9 +114,12 @@ const all: Entry[] = []
 
 function add(initial: string, finalCol: string, pinyin: string) {
   let group: Entry['group']
-  if (initial === 'Ø') group = 'zero'
-  else if ('jqx'.includes(initial)) group = 'jqx'
-  else if (['zh', 'ch', 'sh', 'r', 'z', 'c', 's'].includes(initial)) group = 'zhch'
+  if (initial === 'Ø')
+    group = 'zero'
+  else if ('jqx'.includes(initial))
+    group = 'jqx'
+  else if (['zh', 'ch', 'sh', 'r', 'z', 'c', 's'].includes(initial))
+    group = 'zhch'
   else group = 'bpmf'
 
   try {
@@ -138,15 +196,37 @@ all.sort((a, b) => {
   }
   if (a.group === 'zero' && b.group === 'zero') {
     const cat = (p: string) => p.startsWith('y') ? 0 : p.startsWith('w') ? 1 : 2
-    const ca = cat(a.pinyin), cb = cat(b.pinyin)
-    if (ca !== cb) return ca - cb
+    const ca = cat(a.pinyin)
+    const cb = cat(b.pinyin)
+    if (ca !== cb)
+      return ca - cb
   }
   const sk = sortKey(a.finalCol) - sortKey(b.finalCol)
-  if (sk !== 0) return sk
+  if (sk !== 0)
+    return sk
   const initialOrder: Record<string, number> = {
-    Ø: -1, b: 0, p: 1, m: 2, f: 3, d: 4, t: 5, n: 6, l: 7,
-    g: 8, k: 9, h: 10, j: 11, q: 12, x: 13,
-    zh: 14, ch: 15, sh: 16, r: 17, z: 18, c: 19, s: 20,
+    Ø: -1,
+    b: 0,
+    p: 1,
+    m: 2,
+    f: 3,
+    d: 4,
+    t: 5,
+    n: 6,
+    l: 7,
+    g: 8,
+    k: 9,
+    h: 10,
+    j: 11,
+    q: 12,
+    x: 13,
+    zh: 14,
+    ch: 15,
+    sh: 16,
+    r: 17,
+    z: 18,
+    c: 19,
+    s: 20,
   }
   const iA = a.pinyin.match(/^(zh|ch|sh|[a-z])/)?.[0] ?? ''
   const iB = b.pinyin.match(/^(zh|ch|sh|[a-z])/)?.[0] ?? ''

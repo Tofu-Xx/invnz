@@ -94,7 +94,7 @@ export function pinin2invnzChars(pinin: string) {
   result[result.length - 1] = result[result.length - 1]?.at(-1)
   // 特殊书写规则：若末字为"一"，将首字首位部首替换为"⿱"（表示上下覆盖结构）
   // 如 [⿰木, 一] → [⿱木, 一]，避免末位单字过于单薄
-  if (result.at(-1) === '一' && typeof result[0] === 'string' && result[0].length > 1) {
+  if (result.at(-1) === '一' && result.length === 2 && typeof result[0] === 'string' && result[0].length > 1) {
     result[0] = `⿱${result[0].slice(1)}`
   }
   // 过滤掉因重组遗留的 undefined 占位，合并为最终输出
