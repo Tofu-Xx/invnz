@@ -4,8 +4,8 @@ import { finalMap, initialMap, Pinin2Hanz, voidInitialMap } from './data'
 // 项目全局复用——声母查找、零声母查找、韵母查找、介音查找均经由此函数
 function match<T extends Record<string, string>>(
   str: keyof T extends string ? string : never, // 被匹配的源字符串（拼音或 pinin）
-  map: T,                                       // 映射表（initialMap / finalMap / voidInitialMap / Pinin2Hanz 子表）
-  direction: 'start' | 'end' = 'start',         // 匹配方向：start 为前缀，end 为后缀
+  map: T, // 映射表（initialMap / finalMap / voidInitialMap / Pinin2Hanz 子表）
+  direction: 'start' | 'end' = 'start', // 匹配方向：start 为前缀，end 为后缀
 ): keyof T | undefined {
   // 按 key 长度降序排列，确保最长匹配优先（避免 "zh" 被 "z" 误吞、 "iang" 被 "ian" 误截）
   return Object.keys(map)
