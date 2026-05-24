@@ -41,8 +41,8 @@ const DATA: [string, string, string][] = [
   ['e', 'ee', '么'],
   ['ao', 'ao', '刀'],
   ['er', 'er', '耳'],
-  ['en', 'n', '牛'],
-  ['eng', 'g', '工'],
+  ['en', 'n', '冂'],
+  ['eng', 'g', '勹'],
   ['an', 'an', '⿵冂才'],
   ['ang', 'ag', '⿹勹才'],
 ]

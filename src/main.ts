@@ -74,7 +74,12 @@ export function pinin2invnzChars(pinin: string) {
     pinin = pinin.slice(pininChar?.length)
     if (pininChar) {
       // 成功匹配声母或元音：查对应子表，去重（优先 initial，fallback 到 vowel），压栈
-      result.push(Pinin2Hanz.initial[pininChar as keyof typeof Pinin2Hanz.initial] ?? Pinin2Hanz.vowel[pininChar as keyof typeof Pinin2Hanz.vowel])
+      // 若匹配到 n/g 且消耗了全部 pinin，说明是零声母音节的韵尾，应作为介音处理
+      if (Pinin2Hanz.final[pininChar as keyof typeof Pinin2Hanz.final] && !pinin) {
+        result.push(Pinin2Hanz.final[pininChar as keyof typeof Pinin2Hanz.final])
+      } else {
+        result.push(Pinin2Hanz.initial[pininChar as keyof typeof Pinin2Hanz.initial] ?? Pinin2Hanz.vowel[pininChar as keyof typeof Pinin2Hanz.vowel])
+      }
     }
     else {
       // 既非声母也非元音，尝试匹配介音（Pinin2Hanz.final：n 或 g，对应韵尾冂/勹）
