@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { pinin2invnzChars, pinyin2pinin } from '../src/main'
 
 const DATA: [string, string, string][] = [
+  // i (前)
   ['bi', 'bi', '⿱匕一'],
   ['pi', 'pi', '⿱片一'],
   ['mi', 'mi', '⿱木一'],
@@ -14,6 +15,7 @@ const DATA: [string, string, string][] = [
   ['ti', 'ti', '⿱田一'],
   ['ni', 'ni', '⿱牛一'],
   ['li', 'li', '⿱立一'],
+  // u (前)
   ['bu', 'bu', '⿰匕土'],
   ['pu', 'pu', '⿰片土'],
   ['mu', 'mu', '⿰木土'],
@@ -25,10 +27,12 @@ const DATA: [string, string, string][] = [
   ['gu', 'gu', '⿱工土'],
   ['ku', 'ku', '⿰口土'],
   ['hu', 'hu', '⿰火土'],
+  // ü (前)
   ['nü', 'nv', '⿰牛女'],
   ['nv', 'nv', '⿰牛女'],
   ['lü', 'lv', '⿰立女'],
   ['lv', 'lv', '⿰立女'],
+  // ai (本)
   ['bai', 'ba', '⿰匕才'],
   ['pai', 'pa', '⿰片才'],
   ['mai', 'ma', '⿰木才'],
@@ -39,6 +43,7 @@ const DATA: [string, string, string][] = [
   ['gai', 'ga', '⿱工才'],
   ['kai', 'ka', '⿰口才'],
   ['hai', 'ha', '⿰火才'],
+  // ei (本)
   ['bei', 'be', '⿰匕贝'],
   ['pei', 'pe', '⿰片贝'],
   ['mei', 'me', '⿰木贝'],
@@ -48,6 +53,7 @@ const DATA: [string, string, string][] = [
   ['lei', 'le', '⿰立贝'],
   ['gei', 'ge', '⿱工贝'],
   ['hei', 'he', '⿰火贝'],
+  // ou (本)
   ['pou', 'po', '⿰片斗'],
   ['mou', 'mo', '⿰木斗'],
   ['fou', 'fo', '⿰方斗'],
@@ -58,6 +64,7 @@ const DATA: [string, string, string][] = [
   ['gou', 'go', '⿱工斗'],
   ['kou', 'ko', '⿰口斗'],
   ['hou', 'ho', '⿰火斗'],
+  // a (本)
   ['ba', 'baa', '⿰匕八'],
   ['pa', 'paa', '⿰片八'],
   ['ma', 'maa', '⿰木八'],
@@ -69,10 +76,12 @@ const DATA: [string, string, string][] = [
   ['ga', 'gaa', '⿱工八'],
   ['ka', 'kaa', '⿰口八'],
   ['ha', 'haa', '⿰火八'],
+  // o (本)
   ['bo', 'boo', '⿰匕乇'],
   ['po', 'poo', '⿰片乇'],
   ['mo', 'moo', '⿰木乇'],
   ['fo', 'foo', '⿰方乇'],
+  // e (本)
   ['me', 'mee', '⿰木么'],
   ['de', 'dee', '⿰丁么'],
   ['te', 'tee', '⿰田么'],
@@ -81,6 +90,7 @@ const DATA: [string, string, string][] = [
   ['ge', 'gee', '⿱工么'],
   ['ke', 'kee', '⿰口么'],
   ['he', 'hee', '⿰火么'],
+  // ao (本)
   ['bao', 'bao', '⿰匕刀'],
   ['pao', 'pao', '⿰片刀'],
   ['mao', 'mao', '⿰木刀'],
@@ -91,6 +101,7 @@ const DATA: [string, string, string][] = [
   ['gao', 'gao', '⿱工刀'],
   ['kao', 'kao', '⿰口刀'],
   ['hao', 'hao', '⿰火刀'],
+  // en (尾)
   ['ben', 'bn', '⿵冂匕'],
   ['pen', 'pn', '⿵冂片'],
   ['men', 'mn', '⿵冂木'],
@@ -100,6 +111,7 @@ const DATA: [string, string, string][] = [
   ['gen', 'gn', '⿵冂工'],
   ['ken', 'kn', '⿵冂口'],
   ['hen', 'hn', '⿵冂火'],
+  // eng (尾)
   ['beng', 'bg', '⿹勹匕'],
   ['peng', 'pg', '⿹勹片'],
   ['meng', 'mg', '⿹勹木'],
@@ -111,6 +123,7 @@ const DATA: [string, string, string][] = [
   ['geng', 'gg', '⿹勹工'],
   ['keng', 'kg', '⿹勹口'],
   ['heng', 'hg', '⿹勹火'],
+  // ie (前本)
   ['bie', 'bia', '⿰匕⿱一才'],
   ['pie', 'pia', '⿰片⿱一才'],
   ['mie', 'mia', '⿰木⿱一才'],
@@ -118,11 +131,14 @@ const DATA: [string, string, string][] = [
   ['tie', 'tia', '⿰田⿱一才'],
   ['nie', 'nia', '⿰牛⿱一才'],
   ['lie', 'lia', '⿰立⿱一才'],
+  // iu (前本)
   ['miu', 'mio', '⿰木⿱一斗'],
   ['diu', 'dio', '⿰丁⿱一斗'],
   ['niu', 'nio', '⿰牛⿱一斗'],
   ['liu', 'lio', '⿰立⿱一斗'],
+  // ia (前本)
   ['dia', 'diaa', '⿰丁⿱一八'],
+  // iao (前本)
   ['biao', 'biao', '⿰匕⿱一刀'],
   ['piao', 'piao', '⿰片⿱一刀'],
   ['miao', 'miao', '⿰木⿱一刀'],
@@ -130,17 +146,21 @@ const DATA: [string, string, string][] = [
   ['tiao', 'tiao', '⿰田⿱一刀'],
   ['niao', 'niao', '⿰牛⿱一刀'],
   ['liao', 'liao', '⿰立⿱一刀'],
+  // uai (前本)
   ['guai', 'gua', '⿱工⿱土才'],
   ['kuai', 'kua', '⿰口⿱土才'],
   ['huai', 'hua', '⿰火⿱土才'],
+  // ui (前本)
   ['dui', 'due', '⿰丁⿱土贝'],
   ['tui', 'tue', '⿰田⿱土贝'],
   ['gui', 'gue', '⿱工⿱土贝'],
   ['kui', 'kue', '⿰口⿱土贝'],
   ['hui', 'hue', '⿰火⿱土贝'],
+  // ua (前本)
   ['gua', 'guaa', '⿱工⿱土八'],
   ['kua', 'kuaa', '⿰口⿱土八'],
   ['hua', 'huaa', '⿰火⿱土八'],
+  // uo (前本)
   ['duo', 'duoo', '⿰丁⿱土乇'],
   ['tuo', 'tuoo', '⿰田⿱土乇'],
   ['nuo', 'nuoo', '⿰牛⿱土乇'],
@@ -148,15 +168,18 @@ const DATA: [string, string, string][] = [
   ['guo', 'guoo', '⿱工⿱土乇'],
   ['kuo', 'kuoo', '⿰口⿱土乇'],
   ['huo', 'huoo', '⿰火⿱土乇'],
+  // üe (前本)
   ['nüe', 'nva', '⿰牛⿱女才'],
   ['nve', 'nva', '⿰牛⿱女才'],
   ['lüe', 'lva', '⿰立⿱女才'],
   ['lve', 'lva', '⿰立⿱女才'],
+  // in (前尾)
   ['bin', 'bin', '⿱匕⿵冂一'],
   ['pin', 'pin', '⿱片⿵冂一'],
   ['min', 'min', '⿱木⿵冂一'],
   ['nin', 'nin', '⿱牛⿵冂一'],
   ['lin', 'lin', '⿱立⿵冂一'],
+  // ing (前尾)
   ['bing', 'big', '⿱匕⿹勹一'],
   ['ping', 'pig', '⿱片⿹勹一'],
   ['ming', 'mig', '⿱木⿹勹一'],
@@ -164,6 +187,7 @@ const DATA: [string, string, string][] = [
   ['ting', 'tig', '⿱田⿹勹一'],
   ['ning', 'nig', '⿱牛⿹勹一'],
   ['ling', 'lig', '⿱立⿹勹一'],
+  // un (前尾)
   ['dun', 'dun', '⿰丁⿵冂土'],
   ['tun', 'tun', '⿰田⿵冂土'],
   ['nun', 'nun', '⿰牛⿵冂土'],
@@ -171,6 +195,7 @@ const DATA: [string, string, string][] = [
   ['gun', 'gun', '⿱工⿵冂土'],
   ['kun', 'kun', '⿰口⿵冂土'],
   ['hun', 'hun', '⿰火⿵冂土'],
+  // ong (前尾)
   ['dong', 'dug', '⿰丁⿹勹土'],
   ['tong', 'tug', '⿰田⿹勹土'],
   ['nong', 'nug', '⿰牛⿹勹土'],
@@ -178,6 +203,7 @@ const DATA: [string, string, string][] = [
   ['gong', 'gug', '⿱工⿹勹土'],
   ['kong', 'kug', '⿰口⿹勹土'],
   ['hong', 'hug', '⿰火⿹勹土'],
+  // an (本尾)
   ['ban', 'ban', '⿰匕⿵冂才'],
   ['pan', 'pan', '⿰片⿵冂才'],
   ['man', 'man', '⿰木⿵冂才'],
@@ -189,6 +215,7 @@ const DATA: [string, string, string][] = [
   ['gan', 'gan', '⿱工⿵冂才'],
   ['kan', 'kan', '⿰口⿵冂才'],
   ['han', 'han', '⿰火⿵冂才'],
+  // ang (本尾)
   ['bang', 'bag', '⿰匕⿹勹才'],
   ['pang', 'pag', '⿰片⿹勹才'],
   ['mang', 'mag', '⿰木⿹勹才'],
@@ -200,6 +227,7 @@ const DATA: [string, string, string][] = [
   ['gang', 'gag', '⿱工⿹勹才'],
   ['kang', 'kag', '⿰口⿹勹才'],
   ['hang', 'hag', '⿰火⿹勹才'],
+  // ian (前本尾)
   ['bian', 'bian', '⿰匕⿱一⿵冂才'],
   ['pian', 'pian', '⿰片⿱一⿵冂才'],
   ['mian', 'mian', '⿰木⿱一⿵冂才'],
@@ -207,8 +235,10 @@ const DATA: [string, string, string][] = [
   ['tian', 'tian', '⿰田⿱一⿵冂才'],
   ['nian', 'nian', '⿰牛⿱一⿵冂才'],
   ['lian', 'lian', '⿰立⿱一⿵冂才'],
+  // iang (前本尾)
   ['niang', 'niag', '⿰牛⿱一⿹勹才'],
   ['liang', 'liag', '⿰立⿱一⿹勹才'],
+  // uan (前本尾)
   ['duan', 'duan', '⿰丁⿱土⿵冂才'],
   ['tuan', 'tuan', '⿰田⿱土⿵冂才'],
   ['nuan', 'nuan', '⿰牛⿱土⿵冂才'],
@@ -216,6 +246,7 @@ const DATA: [string, string, string][] = [
   ['guan', 'guan', '⿱工⿱土⿵冂才'],
   ['kuan', 'kuan', '⿰口⿱土⿵冂才'],
   ['huan', 'huan', '⿰火⿱土⿵冂才'],
+  // uang (前本尾)
   ['guang', 'guag', '⿱工⿱土⿹勹才'],
   ['kuang', 'kuag', '⿰口⿱土⿹勹才'],
   ['huang', 'huag', '⿰火⿱土⿹勹才'],

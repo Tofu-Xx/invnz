@@ -9,6 +9,18 @@ const TEST_DIR = path.resolve(__dirname, '../test')
 
 const FINAL_ORDER = Object.keys(finalMap)
 
+const FINAL_COMMENT: Record<string, string> = {
+  i: '前', u: '前', ü: '前',
+  ai: '本', ei: '本', ou: '本', a: '本', o: '本', e: '本', ao: '本', er: '本',
+  en: '尾', eng: '尾',
+  ie: '前本', iu: '前本', ia: '前本', iao: '前本',
+  uai: '前本', ui: '前本', ua: '前本', uo: '前本', üe: '前本',
+  in: '前尾', ing: '前尾', un: '前尾', ong: '前尾', ün: '前尾',
+  an: '本尾', ang: '本尾',
+  ian: '前本尾', iang: '前本尾', iong: '前本尾',
+  uan: '前本尾', uang: '前本尾', üan: '前本尾',
+}
+
 function sortKey(finalCol: string): number {
   const i = FINAL_ORDER.indexOf(finalCol)
   return i >= 0 ? i : 999
@@ -124,6 +136,11 @@ all.sort((a, b) => {
     const gOrder: Record<string, number> = { zero: 0, bpmf: 1, jqx: 2, zhch: 3 }
     return gOrder[a.group] - gOrder[b.group]
   }
+  if (a.group === 'zero' && b.group === 'zero') {
+    const cat = (p: string) => p.startsWith('y') ? 0 : p.startsWith('w') ? 1 : 2
+    const ca = cat(a.pinyin), cb = cat(b.pinyin)
+    if (ca !== cb) return ca - cb
+  }
   const sk = sortKey(a.finalCol) - sortKey(b.finalCol)
   if (sk !== 0) return sk
   const initialOrder: Record<string, number> = {
@@ -136,28 +153,12 @@ all.sort((a, b) => {
   return (initialOrder[iA] ?? 99) - (initialOrder[iB] ?? 99)
 })
 
-function getInitial(pinyin: string): string {
-  if (/^(zh|ch|sh)/.test(pinyin)) return pinyin.slice(0, 2)
-  if (/^[a-z]/.test(pinyin)) return pinyin[0]
-  return ''
-}
-
-function isZeroInitial(e: Entry): boolean {
-  const p = e.pinyin
-  const finalsWithoutYw = ['a','o','e','ai','ei','ao','ou','an','en','ang','eng','er']
-  if (finalsWithoutYw.includes(p)) return true
-  if (/^y[aeio]/.test(p) || /^w[aeiou]/.test(p)) return true
-  if (['yi','wu','yu','yue','yuan','yun'].includes(p)) return true
-  if (p.startsWith('y') || p.startsWith('w')) return true
-  if (p.includes('ü')) return true
-  return false
-}
-
 function writeTestFile(
   entries: Entry[],
   filename: string,
   description: string,
   groupName: string,
+  commentStyle: 'y-w-other' | 'final' = 'final',
 ) {
   const lines: string[] = [
     `/**`,
@@ -171,8 +172,27 @@ function writeTestFile(
     `const DATA: [string, string, string][] = [`,
   ]
 
-  for (const e of entries) {
-    lines.push(`  ['${e.pinyin}', '${e.pinin}', '${e.invnz}'],`)
+  if (commentStyle === 'y-w-other') {
+    let prevCat = ''
+    for (const e of entries) {
+      const cat = e.pinyin.startsWith('y') ? 'y开头' : e.pinyin.startsWith('w') ? 'w开头' : '其他'
+      if (cat !== prevCat) {
+        lines.push(`  // ${cat}`)
+        prevCat = cat
+      }
+      lines.push(`  ['${e.pinyin}', '${e.pinin}', '${e.invnz}'],`)
+    }
+  }
+  else {
+    let prevFinal = ''
+    for (const e of entries) {
+      if (e.finalCol !== prevFinal) {
+        const tag = FINAL_COMMENT[e.finalCol]
+        lines.push(`  // ${e.finalCol}${tag ? ` (${tag})` : ''}`)
+        prevFinal = e.finalCol
+      }
+      lines.push(`  ['${e.pinyin}', '${e.pinin}', '${e.invnz}'],`)
+    }
   }
 
   lines.push(
@@ -198,6 +218,7 @@ writeTestFile(
   'zero-initial.test.ts',
   '零声母拼音（含 y/w/ü 开头的介音）。',
   '零声母',
+  'y-w-other',
 )
 
 writeTestFile(
