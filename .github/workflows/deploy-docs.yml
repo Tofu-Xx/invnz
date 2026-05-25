@@ -1,0 +1,50 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tutorial/**'
+      - '.vitepress/**'
+      - 'pnpm-lock.yaml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm docs:build
+
+      - name: Deploy to gitee-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: tutorial/.vitepress/dist
+          publish_branch: gitee-pages
+          force_orphan: true
+
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
+        with:
+          source-repo: git@github.com:Tofu-Xx/invnz.git
+          destination-repo: git@gitee.com:Tofu_Xx/invnz.git
+
+      - name: Deploy Gitee Pages
+        uses: yanglbme/gitee-pages-action@main
+        with:
+          gitee-username: Tofu_Xx
+          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          gitee-repo: Tofu_Xx/invnz
+          branch: gitee-pages

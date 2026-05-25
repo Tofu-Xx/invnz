@@ -35,7 +35,11 @@
     "test:fail": "vitest run --reporter=./scripts/reporter.ts",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "up": "taze major -I"
+    "up": "taze major -I",
+    "docs": "vitepress dev tutorial",
+    "docs:build": "vitepress build tutorial",
+    "docs:preview": "vitepress preview tutorial",
+    "docs:deploy": "bash scripts/deploy-docs.sh"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.0.0",
@@ -48,6 +52,7 @@
     "taze": "^19.13.0",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
+    "vitepress": "^1.6.4",
     "vitest": "^4.1.7"
   },
   "pnpm": {
