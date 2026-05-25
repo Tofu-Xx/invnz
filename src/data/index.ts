@@ -1,4 +1,3 @@
-export { TO_UNDERLYING, ZI } from './orthography'
 export {
   COMP_INVNZ,
   CONSONANTS,
@@ -9,3 +8,4 @@ export {
   VOWEL_BY_PINYIN,
 } from './tables'
 export { consonantMap, vowelMap } from './ternary'
+export { TO_UNDERLYING, ZI } from './zeroinitial'

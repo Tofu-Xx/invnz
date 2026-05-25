@@ -11,7 +11,6 @@
  *   反向处理上述规则，并对零声母音节施加 y/w/yu 正写法。
  */
 
-import { TO_UNDERLYING, ZI } from './data/orthography'
 import {
   CONSONANTS,
   JQX,
@@ -19,6 +18,7 @@ import {
   VOWEL_BY_INVN,
   VOWEL_BY_PINYIN,
 } from './data/tables'
+import { TO_UNDERLYING, ZI } from './data/zeroinitial'
 import { match } from './tools/match'
 
 /**
