@@ -2,8 +2,8 @@
  * 构建脚本：从 zi.tools 预取 IDS 组合 SVG 路径数据。
  */
 import { writeFileSync } from 'node:fs'
-import { invn2invnz } from '../src/invnz-convert'
 import { CONSONANTS, VOWEL_BY_INVN } from '../src/data/tables'
+import { invn2invnz } from '../src/invnz-convert'
 
 const ZU_ZI_API = 'http://zu.zi.tools/'
 const OUTPUT_PATH = 'tutorial/.vitepress/theme/invnz-glyphs.ts'
@@ -14,7 +14,8 @@ async function fetchPaths(charOrIds: string): Promise<string[] | null> {
   const url = `${ZU_ZI_API}${encodeURIComponent(charOrIds)}.svg`
   try {
     const res = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT_MS) })
-    if (!res.ok) return null
+    if (!res.ok)
+      return null
     const text = await res.text()
     const paths: string[] = []
     const regex = /<path\s+d="((?:[^"\\]|\\.)*)"/g
@@ -22,15 +23,16 @@ async function fetchPaths(charOrIds: string): Promise<string[] | null> {
     while ((match = regex.exec(text)) !== null)
       paths.push(match[1])
     return paths.length > 0 ? paths : null
-  } catch {
+  }
+  catch {
     return null
   }
 }
 
 async function batchFetch<T>(items: T[], keyFn: (item: T) => string, label: string):
-  Promise<[Record<string, string[]>, number, number]> {
+Promise<[Record<string, string[]>, number, number]> {
   const result: Record<string, string[]> = {}
-  let ok = 0, fail = 0
+  let ok = 0; let fail = 0
   console.log(`\n开始 ${label} (共 ${items.length} 条, 并发 ${CONCURRENCY})`)
   for (let i = 0; i < items.length; i += CONCURRENCY) {
     const batch = items.slice(i, i + CONCURRENCY)
@@ -39,11 +41,13 @@ async function batchFetch<T>(items: T[], keyFn: (item: T) => string, label: stri
         const key = keyFn(item)
         const paths = await fetchPaths(key)
         return { key, paths }
-      })
+      }),
     )
     for (const { key, paths } of results) {
       if (paths) { result[key] = paths; ok++ }
-      else fail++
+      else {
+        fail++
+      }
     }
     const pct = Math.min(i + CONCURRENCY, items.length)
     if (pct % 100 === 0 || pct >= items.length)
@@ -58,12 +62,14 @@ async function main() {
   for (const cons of CONSONANTS) {
     for (const [vowelKey] of VOWEL_BY_INVN) {
       const invnz = invn2invnz(cons.invn + vowelKey)
-      if (invnz) idsSet.add(invnz)
+      if (invnz)
+        idsSet.add(invnz)
     }
   }
   for (const [vowelKey] of VOWEL_BY_INVN) {
     const invnz = invn2invnz(vowelKey)
-    if (invnz) idsSet.add(invnz)
+    if (invnz)
+      idsSet.add(invnz)
   }
   const allIds = [...idsSet].sort()
 
@@ -78,21 +84,27 @@ async function main() {
   // 2. 收集所有需兜底的单字
   const rootChars = new Set<string>(singleChars)
   for (const ids of idcExps) {
-    for (const ch of ids)
-      if (!'⿰⿱⿸⿹⿵'.includes(ch)) rootChars.add(ch)
+    for (const ch of ids) {
+      if (!'⿰⿱⿸⿹⿵'.includes(ch))
+        rootChars.add(ch)
+    }
   }
   for (const ch of '田艹纟贝丁么工久山忄厂')
     rootChars.add(ch)
 
   // 3. 预取 IDC 表达式
   const [idsResult, idsOk, idsFail] = await batchFetch(
-    idcExps, s => s, 'IDC 表达式'
+    idcExps,
+    s => s,
+    'IDC 表达式',
   )
 
   // 4. 预取单字
   const sortedChars = [...rootChars].sort()
   const [charResult, charOk, charFail] = await batchFetch(
-    sortedChars, s => s, '单字'
+    sortedChars,
+    s => s,
+    '单字',
   )
 
   // 5. 生成文件
@@ -105,14 +117,16 @@ export interface InvnzGlyphData {
 }
 
 export const IDS_SVGS: Record<string, InvnzGlyphData> = ${JSON.stringify(
-    Object.fromEntries(Object.entries(idsResult).map(([k, v]) => [k, { strokes: v }])),
-    null, 2
-  )}
+  Object.fromEntries(Object.entries(idsResult).map(([k, v]) => [k, { strokes: v }])),
+  null,
+  2,
+)}
 
 export const CHAR_SVGS: Record<string, InvnzGlyphData> = ${JSON.stringify(
-    Object.fromEntries(Object.entries(charResult).map(([k, v]) => [k, { strokes: v }])),
-    null, 2
-  )}
+  Object.fromEntries(Object.entries(charResult).map(([k, v]) => [k, { strokes: v }])),
+  null,
+  2,
+)}
 
 export const SVG_SIZE = 200
 `

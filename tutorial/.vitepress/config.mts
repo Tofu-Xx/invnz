@@ -1,3 +1,5 @@
+import path from 'node:path'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
@@ -5,12 +7,27 @@ export default defineConfig({
   title: 'invnz',
   description: '汉语拼音 ↔ 音韵码 ↔ 音韵字 转换教程',
 
+  vite: {
+    plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './theme'),
+        '@invnz': path.resolve(__dirname, '../../src'),
+      },
+    },
+    server: {
+      fs: {
+        allow: [path.resolve(__dirname, '../..')],
+      },
+    },
+  },
+
   themeConfig: {
     logo: undefined,
     nav: [
       { text: '指南', link: '/guide/intro' },
       { text: '参考', link: '/reference/consonants' },
-      { text: '示例', link: '/examples' },
+      { text: '音节速查', link: '/quickref' },
     ],
 
     sidebar: {

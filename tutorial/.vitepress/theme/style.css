@@ -1,0 +1,185 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --font-serif: "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", "Songti SC", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: #f5f0e8;
+  --foreground: #1a1a1a;
+  --card: #faf6ee;
+  --card-foreground: #1a1a1a;
+  --popover: #faf6ee;
+  --popover-foreground: #1a1a1a;
+  --primary: #b53120;
+  --primary-foreground: #faf6ee;
+  --secondary: #ede4d0;
+  --secondary-foreground: #1a1a1a;
+  --muted: #ede4d0;
+  --muted-foreground: #8a7e6b;
+  --accent: #e8dccc;
+  --accent-foreground: #1a1a1a;
+  --destructive: #b53120;
+  --border: #d4ccc0;
+  --input: #d4ccc0;
+  --ring: #b53120;
+
+  /* VitePress 覆盖 — 古典亮色 */
+  --vp-c-bg: #f5f0e8;
+  --vp-c-bg-alt: #efe8db;
+  --vp-c-bg-elv: #faf6ee;
+  --vp-c-bg-soft: #efe8db;
+  --vp-c-text-1: #1a1a1a;
+  --vp-c-text-2: #4a4438;
+  --vp-c-text-3: #8a7e6b;
+  --vp-c-border: #d4ccc0;
+  --vp-c-brand-1: #b53120;
+  --vp-c-brand-2: #8a2614;
+  --vp-c-brand-3: #d44a30;
+  --vp-c-brand-soft: #f0e0d0;
+  --vp-nav-bg-color: #f5f0e8;
+  --vp-sidebar-bg-color: #f5f0e8;
+  --vp-c-default-1: var(--vp-c-border);
+  --vp-c-default-2: var(--vp-c-border);
+  --vp-c-default-3: var(--vp-c-border);
+  --vp-c-default-soft: var(--vp-c-bg-soft);
+  --vp-c-divider: var(--vp-c-border);
+}
+
+.dark {
+  --background: #2a2520;
+  --foreground: #d4cdc0;
+  --card: #352f28;
+  --card-foreground: #d4cdc0;
+  --popover: #352f28;
+  --popover-foreground: #d4cdc0;
+  --primary: #d46a5a;
+  --primary-foreground: #2a2520;
+  --secondary: #3d362e;
+  --secondary-foreground: #d4cdc0;
+  --muted: #3d362e;
+  --muted-foreground: #8a7e6b;
+  --accent: #4a4238;
+  --accent-foreground: #d4cdc0;
+  --destructive: #d46a5a;
+  --border: #4a4438;
+  --input: #4a4438;
+  --ring: #d46a5a;
+
+  /* VitePress 覆盖 — 古典暗色 */
+  --vp-c-bg: #2a2520;
+  --vp-c-bg-alt: #221e1a;
+  --vp-c-bg-elv: #352f28;
+  --vp-c-bg-soft: #221e1a;
+  --vp-c-text-1: #d4cdc0;
+  --vp-c-text-2: #a09888;
+  --vp-c-text-3: #7a7060;
+  --vp-c-border: #4a4438;
+  --vp-c-brand-1: #d46a5a;
+  --vp-c-brand-2: #b55a4a;
+  --vp-c-brand-3: #e87a6a;
+  --vp-c-brand-soft: #3d2a22;
+  --vp-nav-bg-color: #2a2520;
+  --vp-sidebar-bg-color: #2a2520;
+  --vp-c-divider: var(--vp-c-border);
+}
+
+/* 宣纸噪声纹理 (SVG feTurbulence) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* 全局字体 */
+body, .VPDoc, .VPNav, .VPSidebar {
+  font-family: var(--font-serif), serif !important;
+}
+
+/* VitePress 导航/侧栏古典化 */
+.VPNavBar, .VPNavBar.has-sidebar {
+  background-color: var(--vp-nav-bg-color) !important;
+  border-bottom: 1px solid var(--vp-c-border) !important;
+}
+.VPSidebar {
+  background-color: var(--vp-sidebar-bg-color) !important;
+  border-right: 1px solid var(--vp-c-border) !important;
+}
+.VPSidebarItem .text {
+  color: var(--vp-c-text-2) !important;
+}
+.VPSidebarItem.is-active .text {
+  color: var(--vp-c-brand-1) !important;
+}
+.VPFooter {
+  border-top: 1px solid var(--vp-c-border) !important;
+}
+.content-container {
+  max-width: 1200px !important;
+}
+
+.quickref-page .VPDoc .container {
+  max-width: none !important;
+}
+.quickref-page .VPDoc .content-container {
+  max-width: none !important;
+  padding: 0 !important;
+}
+.quickref-page .vp-doc {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: calc(100vh - var(--vp-nav-height, 55px)) !important;
+}
+.quickref-page .vp-doc h1 {
+  margin: 0.5rem 0.75rem 0.25rem;
+  flex-shrink: 0;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

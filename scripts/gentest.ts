@@ -47,16 +47,18 @@ const FINAL_COMMENT: Record<string, string> = {
   üan: '头腹尾',
 }
 
-const ZERO_GROUP_ORDER: Record<string, number> = { '重复': 0, '冗余': 1, '整体': 2, '组合': 3 }
+const ZERO_GROUP_ORDER: Record<string, number> = { 重复: 0, 冗余: 1, 整体: 2, 组合: 3 }
 
 function zeroCategory(e: Entry): string {
   const { pinyin, finalCol } = e
   if (pinyin.startsWith('y') || pinyin.startsWith('w')) {
-    if (finalCol.startsWith('i') || finalCol === 'u') return '重复'
+    if (finalCol.startsWith('i') || finalCol === 'u')
+      return '重复'
     return '冗余'
   }
   const vowel = vowelMap.find(v => v.pinyin === finalCol)
-  if (!vowel) return '其他'
+  if (!vowel)
+    return '其他'
   const parts = vowel.invnPart.split('_').filter(Boolean)
   return parts.length === 1 ? '整体' : '组合'
 }
@@ -191,11 +193,13 @@ all.sort((a, b) => {
   if (a.group === 'zero' && b.group === 'zero') {
     const ga = zeroCategory(a)
     const gb = zeroCategory(b)
-    if (ga !== gb) return ZERO_GROUP_ORDER[ga] - ZERO_GROUP_ORDER[gb]
+    if (ga !== gb)
+      return ZERO_GROUP_ORDER[ga] - ZERO_GROUP_ORDER[gb]
     const cat = (p: string) => p.startsWith('y') ? 0 : p.startsWith('w') ? 1 : 2
     const ca = cat(a.pinyin)
     const cb = cat(b.pinyin)
-    if (ca !== cb) return ca - cb
+    if (ca !== cb)
+      return ca - cb
   }
   const sk = sortKey(a.finalCol) - sortKey(b.finalCol)
   if (sk !== 0)
