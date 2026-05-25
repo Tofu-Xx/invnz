@@ -26,7 +26,7 @@ function main() {
     const path = font.getPath(c, 0, 0, font.unitsPerEm)
     const bbox = path.getBoundingBox()
     glyphs[c] = {
-      d: path.toSVG(),
+      d: path.toPathData(),
       x: bbox.x1,
       y: bbox.y1,
       w: bbox.x2 - bbox.x1,
