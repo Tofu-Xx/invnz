@@ -1,50 +1,50 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { finalMap } from '../src/data'
+import { vowelMap } from '../src/data'
 import { invn2invnz, pinyin2invn } from '../src/main'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const TEST_DIR = path.resolve(__dirname, '../test')
 
-const FINAL_ORDER = Object.keys(finalMap)
+const FINAL_ORDER = vowelMap.map(v => v.pinyin)
 
 const FINAL_COMMENT: Record<string, string> = {
-  i: '前',
-  u: '前',
-  ü: '前',
-  ai: '本',
-  ei: '本',
-  ou: '本',
-  a: '本',
-  o: '本',
-  e: '本',
-  ao: '本',
-  er: '本',
+  i: '头',
+  u: '头',
+  ü: '头',
+  ai: '腹',
+  ei: '腹',
+  ou: '腹',
+  a: '腹',
+  o: '腹',
+  e: '腹',
+  ao: '腹',
+  er: '腹',
   en: '尾',
   eng: '尾',
-  ie: '前本',
-  iu: '前本',
-  ia: '前本',
-  iao: '前本',
-  uai: '前本',
-  ui: '前本',
-  ua: '前本',
-  uo: '前本',
-  üe: '前本',
-  in: '前尾',
-  ing: '前尾',
-  un: '前尾',
-  ong: '前尾',
-  ün: '前尾',
-  an: '本尾',
-  ang: '本尾',
-  ian: '前本尾',
-  iang: '前本尾',
-  iong: '前本尾',
-  uan: '前本尾',
-  uang: '前本尾',
-  üan: '前本尾',
+  ie: '头腹',
+  iu: '头腹',
+  ia: '头腹',
+  iao: '头腹',
+  uai: '头腹',
+  ui: '头腹',
+  ua: '头腹',
+  uo: '头腹',
+  üe: '头腹',
+  in: '头尾',
+  ing: '头尾',
+  un: '头尾',
+  ong: '头尾',
+  ün: '头尾',
+  an: '腹尾',
+  ang: '腹尾',
+  ian: '头腹尾',
+  iang: '头腹尾',
+  iong: '头腹尾',
+  uan: '头腹尾',
+  uang: '头腹尾',
+  üan: '头腹尾',
 }
 
 function sortKey(finalCol: string): number {
@@ -83,7 +83,7 @@ const ZERO_INITIAL: Record<string, string> = {
   uan: 'wan',
   un: 'wen',
   uang: 'wang',
-  ong: 'weng',
+  ong: 'ong',
   ü: 'yu',
   üe: 'yue',
   üan: 'yuan',
@@ -129,26 +129,6 @@ function add(initial: string, finalCol: string, pinyin: string) {
   }
   catch {
     // skip if error
-  }
-
-  if (initial === 'n' && finalCol.startsWith('ü')) {
-    const vPy = pinyin.replace('ü', 'v')
-    try {
-      const pinin = pinyin2invn(vPy)
-      const invnz = invn2invnz(pinin)
-      all.push({ group, finalCol, pinyin: vPy, pinin, invnz })
-    }
-    catch { /* skip */ }
-  }
-
-  if (initial === 'l' && finalCol.startsWith('ü')) {
-    const vPy = pinyin.replace('ü', 'v')
-    try {
-      const pinin = pinyin2invn(vPy)
-      const invnz = invn2invnz(pinin)
-      all.push({ group, finalCol, pinyin: vPy, pinin, invnz })
-    }
-    catch { /* skip */ }
   }
 }
 
@@ -247,7 +227,7 @@ function writeTestFile(
     ` */`,
     '',
     `import { describe, expect, it } from 'vitest'`,
-    `import { pinin2invnzChars, pinyin2pinin } from '../src/main'`,
+    `import { invn2invnz, invn2pinyin, invnz2invn, invnz2pinyin, pinyin2invn, pinyin2invnz } from '../src/main'`,
     '',
     `const DATA: [string, string, string][] = [`,
   ]
@@ -281,9 +261,9 @@ function writeTestFile(
     `describe('${groupName}', () => {`,
     `  it.each(DATA)(`,
     `    '%s → %s → %s',`,
-    `    (pinyin, pinin, invnz) => {`,
-    `      expect(pinyin2pinin(pinyin)).toBe(pinin)`,
-    `      expect(pinin2invnzChars(pinin)).toBe(invnz)`,
+    `    (_, invn, invnz) => {`,
+    `      expect(pinyin2invnz(invnz2pinyin(invnz))).toBe(invn2invnz(invn))`,
+    `      expect(pinyin2invn(invn2pinyin(invn))).toBe(invnz2invn(invnz))`,
     `    },`,
     `  )`,
     `})`,
@@ -295,7 +275,7 @@ function writeTestFile(
 
 writeTestFile(
   all.filter(e => e.group === 'zero'),
-  'zero-initial.test.ts',
+  'zeroinitial.test.ts',
   '零声母拼音（含 y/w/ü 开头的介音）。',
   '零声母',
   'y-w-other',
