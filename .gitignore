@@ -1,3 +1,4 @@
+tutorial/.vitepress/cache/
 # Created by https://www.toptal.com/developers/gitignore/api/mean,composer,yeoman,nette
 # Edit at https://www.toptal.com/developers/gitignore?templates=mean,composer,yeoman,nette
 
@@ -185,5 +186,8 @@ e2e/*.map
 ### Yeoman ###
 
 build/
+
+# VitePress cache
+tutorial/.vitepress/cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/mean,composer,yeoman,nette
