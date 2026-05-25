@@ -77,7 +77,8 @@ export function pinin2invnzChars(pinin: string) {
       // 若匹配到 n/g 且消耗了全部 pinin，说明是零声母音节的韵尾，应作为介音处理
       if (Pinin2Hanz.final[pininChar as keyof typeof Pinin2Hanz.final] && !pinin) {
         result.push(Pinin2Hanz.final[pininChar as keyof typeof Pinin2Hanz.final])
-      } else {
+      }
+      else {
         result.push(Pinin2Hanz.initial[pininChar as keyof typeof Pinin2Hanz.initial] ?? Pinin2Hanz.vowel[pininChar as keyof typeof Pinin2Hanz.vowel])
       }
     }
