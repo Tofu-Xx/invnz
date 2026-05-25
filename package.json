@@ -53,11 +53,16 @@
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitepress": "^1.6.4",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.7",
+    "wrangler": "^4.94.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
+    ],
+    "ignoredBuiltDependencies": [
+      "sharp",
+      "workerd"
     ]
   }
 }
