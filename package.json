@@ -40,7 +40,7 @@
     "docs:build": "vitepress build tutorial",
     "docs:preview": "vitepress preview tutorial",
     "docs:deploy": "bash scripts/deploy-docs.sh",
-    "glyphs": "esno scripts/extract-glyphs.ts"
+    "glyphs": "esno scripts/extract-ids-svgs.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.0.0",
@@ -50,7 +50,6 @@
     "eslint": "^10.4.0",
     "eslint-plugin-format": "^2.0.1",
     "esno": "^4.8.0",
-    "opentype.js": "^2.0.0",
     "taze": "^19.13.0",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",

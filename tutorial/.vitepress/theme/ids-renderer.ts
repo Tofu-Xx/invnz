@@ -1,4 +1,4 @@
-import { GLYPHS, UNITS_PER_EM } from './invnz-glyphs'
+import { CHAR_SVGS, IDS_SVGS, SVG_SIZE } from './invnz-glyphs'
 
 const IDC = '⿰⿱⿸⿹⿵'
 
@@ -27,50 +27,71 @@ function parseIds(str: string): IdsTree {
       return null
     const c = str[pos]
     if (isIdc(c)) {
-      const op = c
-      pos++
-      const a = parse()
-      const b = parse()
+      const op = c; pos++
+      const a = parse(); const b = parse()
       if (!a || !b)
         return null
       return { t: 'ids', op, a, b }
     }
-    if (c.trim()) {
-      pos++
-      return { t: 'char', c }
-    }
-    pos++
-    return parse()
+    if (c.trim()) { pos++; return { t: 'char', c } }
+    pos++; return parse()
   }
   return parse()
 }
 
-function renderIds(tree: IdsTree, size: number): SVGSVGElement {
+function createSvg(size: number): SVGSVGElement {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   svg.setAttribute('width', String(size))
   svg.setAttribute('height', String(size))
   svg.setAttribute('viewBox', `0 0 ${size} ${size}`)
   svg.setAttribute('fill', 'currentColor')
+  return svg
+}
+
+function createPaths(svg: SVGSVGElement, strokes: string[]) {
+  for (const d of strokes) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+    path.setAttribute('d', d)
+    svg.appendChild(path)
+  }
+}
+
+/** 直接使用预取的完整 IDS SVG 数据 */
+function renderPrefetched(text: string, size: number): SVGSVGElement | null {
+  const data = IDS_SVGS[text]
+  if (!data)
+    return null
+  const svg = createSvg(size)
+  svg.setAttribute('viewBox', `0 0 ${SVG_SIZE} ${SVG_SIZE}`)
+  createPaths(svg, data.strokes)
+  return svg
+}
+
+/** 兜底：用单个字的笔画数据通过 IDS 布局规则组合 */
+function renderFallback(tree: IdsTree, size: number): SVGSVGElement {
+  const svg = createSvg(size)
+  svg.setAttribute('viewBox', `0 0 ${size} ${size}`)
 
   function draw(node: IdsTree, x: number, y: number, w: number, h: number) {
     if (!node)
       return
     if (node.t === 'char') {
-      const glyph = GLYPHS[node.c]
-      if (glyph) {
-        const scale = Math.min(w, h) * 0.8 / UNITS_PER_EM
-        const contentW = glyph.w * scale
-        const contentH = glyph.h * scale
-        const tx = x + (w - contentW) / 2 - glyph.x * scale
-        const ty = y + (h - contentH) / 2 - glyph.y * scale
+      const data = CHAR_SVGS[node.c]
+      if (!data)
+        return
+      const scale = Math.min(w, h) * 0.85 / SVG_SIZE
+      const tx = x + (w - SVG_SIZE * scale) / 2
+      const ty = y + (h - SVG_SIZE * scale) / 2
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+      g.setAttribute('transform', `translate(${tx}, ${ty}) scale(${scale})`)
+      for (const d of data.strokes) {
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-        path.setAttribute('d', glyph.d)
-        path.setAttribute('transform', `translate(${tx}, ${ty}) scale(${scale})`)
-        svg.appendChild(path)
+        path.setAttribute('d', d)
+        g.appendChild(path)
       }
+      svg.appendChild(g)
       return
     }
-
     switch (node.op) {
       case '⿰':
         draw(node.a, x, y, w / 2, h)
@@ -108,22 +129,38 @@ function replaceIdsInCodeElements(): void {
       return
     }
 
+    const fontSize = Number.parseFloat(getComputedStyle(code).fontSize) || 16
+
+    // 1. Try pre-fetched exact match
+    const preSvg = renderPrefetched(text, 100)
+    if (preSvg) {
+      preSvg.style.width = `${fontSize}px`
+      preSvg.style.height = `${fontSize}px`
+      preSvg.style.overflow = 'visible'
+      preSvg.style.display = 'inline-block'
+      preSvg.style.verticalAlign = 'middle'
+      code.textContent = ''
+      code.appendChild(preSvg)
+      code.setAttribute('data-ids-rendered', 'yes')
+      return
+    }
+
+    // 2. Fallback: parse tree and compose from individual chars
     const tree = parseIds(text)
     if (!tree) {
       code.setAttribute('data-ids-rendered', 'skip')
       return
     }
 
-    const fontSize = Number.parseFloat(getComputedStyle(code).fontSize) || 16
-    const svg = renderIds(tree, 100)
-    svg.style.width = `${fontSize}px`
-    svg.style.height = `${fontSize}px`
-    svg.style.overflow = 'visible'
-    svg.style.display = 'inline-block'
-    svg.style.verticalAlign = 'middle'
+    const fbSvg = renderFallback(tree, 100)
+    fbSvg.style.width = `${fontSize}px`
+    fbSvg.style.height = `${fontSize}px`
+    fbSvg.style.overflow = 'visible'
+    fbSvg.style.display = 'inline-block'
+    fbSvg.style.verticalAlign = 'middle'
 
     code.textContent = ''
-    code.appendChild(svg)
+    code.appendChild(fbSvg)
     code.setAttribute('data-ids-rendered', 'yes')
   })
 }
@@ -134,20 +171,14 @@ export function startIdsRenderer(): void {
   if (started)
     return
   started = true
-
   if (typeof window === 'undefined' || typeof document === 'undefined')
     return
 
-  function run(): void {
-    replaceIdsInCodeElements()
-  }
+  function run() { replaceIdsInCodeElements() }
 
-  if (document.readyState === 'loading') {
+  if (document.readyState === 'loading')
     document.addEventListener('DOMContentLoaded', run)
-  }
-  else {
-    run()
-  }
+  else run()
 
   let timeout: ReturnType<typeof setTimeout>
   const observer = new MutationObserver(() => {
