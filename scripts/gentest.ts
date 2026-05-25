@@ -47,6 +47,20 @@ const FINAL_COMMENT: Record<string, string> = {
   üan: '头腹尾',
 }
 
+const ZERO_GROUP_ORDER: Record<string, number> = { '重复': 0, '冗余': 1, '整体': 2, '组合': 3 }
+
+function zeroCategory(e: Entry): string {
+  const { pinyin, finalCol } = e
+  if (pinyin.startsWith('y') || pinyin.startsWith('w')) {
+    if (finalCol.startsWith('i') || finalCol === 'u') return '重复'
+    return '冗余'
+  }
+  const vowel = vowelMap.find(v => v.pinyin === finalCol)
+  if (!vowel) return '其他'
+  const parts = vowel.invnPart.split('_').filter(Boolean)
+  return parts.length === 1 ? '整体' : '组合'
+}
+
 function sortKey(finalCol: string): number {
   const i = FINAL_ORDER.indexOf(finalCol)
   return i >= 0 ? i : 999
@@ -175,11 +189,13 @@ all.sort((a, b) => {
     return gOrder[a.group] - gOrder[b.group]
   }
   if (a.group === 'zero' && b.group === 'zero') {
+    const ga = zeroCategory(a)
+    const gb = zeroCategory(b)
+    if (ga !== gb) return ZERO_GROUP_ORDER[ga] - ZERO_GROUP_ORDER[gb]
     const cat = (p: string) => p.startsWith('y') ? 0 : p.startsWith('w') ? 1 : 2
     const ca = cat(a.pinyin)
     const cb = cat(b.pinyin)
-    if (ca !== cb)
-      return ca - cb
+    if (ca !== cb) return ca - cb
   }
   const sk = sortKey(a.finalCol) - sortKey(b.finalCol)
   if (sk !== 0)
@@ -218,7 +234,7 @@ function writeTestFile(
   filename: string,
   description: string,
   groupName: string,
-  commentStyle: 'y-w-other' | 'final' = 'final',
+  commentStyle: 'zero' | 'final' = 'final',
 ) {
   const lines: string[] = [
     `/**`,
@@ -232,13 +248,13 @@ function writeTestFile(
     `const DATA: [string, string, string][] = [`,
   ]
 
-  if (commentStyle === 'y-w-other') {
-    let prevCat = ''
+  if (commentStyle === 'zero') {
+    let prevGroup = ''
     for (const e of entries) {
-      const cat = e.pinyin.startsWith('y') ? 'y开头' : e.pinyin.startsWith('w') ? 'w开头' : '其他'
-      if (cat !== prevCat) {
-        lines.push(`  // ${cat}`)
-        prevCat = cat
+      const grp = zeroCategory(e)
+      if (grp !== prevGroup) {
+        lines.push(`  // ${grp}`)
+        prevGroup = grp
       }
       lines.push(`  ['${e.pinyin}', '${e.pinin}', '${e.invnz}'],`)
     }
@@ -261,9 +277,13 @@ function writeTestFile(
     `describe('${groupName}', () => {`,
     `  it.each(DATA)(`,
     `    '%s → %s → %s',`,
-    `    (_, invn, invnz) => {`,
-    `      expect(pinyin2invnz(invnz2pinyin(invnz))).toBe(invn2invnz(invn))`,
-    `      expect(pinyin2invn(invn2pinyin(invn))).toBe(invnz2invn(invnz))`,
+    `    (pinyin, invn, invnz) => {`,
+    `      expect(invnz2pinyin(invnz)).toBe(pinyin)`,
+    `      expect(pinyin2invnz(pinyin)).toBe(invnz)`,
+    `      expect(invn2pinyin(invn)).toBe(pinyin)`,
+    `      expect(pinyin2invn(pinyin)).toBe(invn)`,
+    `      expect(invn2invnz(invn)).toBe(invnz)`,
+    `      expect(invnz2invn(invnz)).toBe(invn)`,
     `    },`,
     `  )`,
     `})`,
@@ -278,7 +298,7 @@ writeTestFile(
   'zeroinitial.test.ts',
   '零声母拼音（含 y/w/ü 开头的介音）。',
   '零声母',
-  'y-w-other',
+  'zero',
 )
 
 writeTestFile(

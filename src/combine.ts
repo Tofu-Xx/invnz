@@ -25,24 +25,24 @@ export function combineComps(comps: string[], isZeroInit: boolean): string {
     return ''
   if (n === 1) {
     const invnz = COMP_INVNZ.get(comps[0]) || ''
-    return isZeroInit ? invnz[1] || '' : invnz
+    return isZeroInit ? invnz.at(-1) || '' : invnz
   }
   const last = comps[n - 1]
   const isCoda = COMP_INVNZ.get(last)?.[0] === '⿵' || COMP_INVNZ.get(last)?.[0] === '⿹'
   if (!isCoda) {
     const f = COMP_INVNZ.get(comps[0]) || ''
     const s = COMP_INVNZ.get(comps[1]) || ''
-    return f[0] + f[1] + s[1]
+    return f[0] + f[1] + s.at(-1)
   }
   const tail = COMP_INVNZ.get(last) || ''
   if (n === 2) {
     const first = COMP_INVNZ.get(comps[0]) || ''
     if (isZeroInit && comps[0] === 'i')
-      return `⿱${tail[1]}${first[1]}`
-    return tail[0] + tail[1] + first[1]
+      return `⿱${tail.at(-1)}${first.at(-1)}`
+    return tail[0] + tail.at(-1) + first.at(-1)
   }
   const head = COMP_INVNZ.get(comps[0]) || ''
   const nuc = COMP_INVNZ.get(comps[1]) || ''
-  const wrapped = tail[0] + tail[1] + nuc[1]
+  const wrapped = tail[0] + tail.at(-1) + nuc.at(-1)
   return head[0] + head[1] + wrapped
 }
