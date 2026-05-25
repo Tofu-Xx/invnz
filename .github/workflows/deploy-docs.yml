@@ -10,7 +10,8 @@ on:
       - pnpm-lock.yaml
 
 permissions:
-  contents: write
+  contents: read
+  deployments: write
 
 jobs:
   deploy:
@@ -29,27 +30,10 @@ jobs:
 
       - run: pnpm docs:build
 
-      - name: Deploy to gitee-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: tutorial/.vitepress/dist
-          publish_branch: gitee-pages
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
-        with:
-          source-repo: git@github.com:Tofu-Xx/invnz.git
-          destination-repo: git@gitee.com:Tofu_Xx/invnz.git
-
-      - name: Deploy Gitee Pages
-        uses: yanglbme/gitee-pages-action@main
-        with:
-          gitee-username: Tofu_Xx
-          gitee-password: ${{ secrets.GITEE_PASSWORD }}
-          gitee-repo: Tofu_Xx/invnz
-          branch: gitee-pages
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: '47025005f4f0aa89f18af1b2078744ff'
+          command: pages deploy tutorial/.vitepress/dist --project-name=invnz
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
