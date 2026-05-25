@@ -6,7 +6,7 @@ on:
     paths:
       - 'tutorial/**'
       - '.vitepress/**'
-      - 'pnpm-lock.yaml'
+      - pnpm-lock.yaml
 
 jobs:
   deploy:
