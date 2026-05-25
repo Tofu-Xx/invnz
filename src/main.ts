@@ -106,3 +106,7 @@ export function invn2invnz(pinin: string) {
   // 过滤掉因重组遗留的 undefined 占位，合并为最终输出
   return result.filter(Boolean).join('')
 }
+
+function handlePinyin():{invn,invnz}
+function handleInvn():{pinyin,invnz}
+function handleInvnz():{pinyin,invn}
