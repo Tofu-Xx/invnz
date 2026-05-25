@@ -79,9 +79,4 @@ export const consonantMap = {
     ternary('c', 'c', '⿱艹'),
     ternary('s', 's', '⿰纟'),
   ],
-  zero: [
-    ternary('Ø', '', ''),
-    ternary('y', 'i', '一'),
-    ternary('w', 'u', '土'),
-  ],
 } as const
