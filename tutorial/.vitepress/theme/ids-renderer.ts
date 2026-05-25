@@ -108,6 +108,7 @@ function replaceIdsInCodeElements(): void {
     const svg = renderIds(tree, 100)
     svg.style.width = `${fontSize}px`
     svg.style.height = `${fontSize}px`
+    svg.style.overflow = 'visible'
     svg.style.display = 'inline-block'
     svg.style.verticalAlign = 'middle'
 
