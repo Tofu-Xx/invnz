@@ -34,6 +34,6 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: '47025005f4f0aa89f18af1b2078744ff'
+          accountId: 47025005f4f0aa89f18af1b2078744ff
           command: pages deploy tutorial/.vitepress/dist --project-name=invnz
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}

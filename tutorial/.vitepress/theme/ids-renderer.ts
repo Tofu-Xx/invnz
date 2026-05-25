@@ -1,3 +1,5 @@
+import { GLYPHS, UNITS_PER_EM } from './invnz-glyphs'
+
 const IDC = '⿰⿱⿸⿹⿵'
 
 interface CharNode {
@@ -21,14 +23,16 @@ function isIdc(c: string): boolean {
 function parseIds(str: string): IdsTree {
   let pos = 0
   function parse(): IdsTree {
-    if (pos >= str.length) return null
+    if (pos >= str.length)
+      return null
     const c = str[pos]
     if (isIdc(c)) {
       const op = c
       pos++
       const a = parse()
       const b = parse()
-      if (!a || !b) return null
+      if (!a || !b)
+        return null
       return { t: 'ids', op, a, b }
     }
     if (c.trim()) {
@@ -49,15 +53,21 @@ function renderIds(tree: IdsTree, size: number): SVGSVGElement {
   svg.setAttribute('fill', 'currentColor')
 
   function draw(node: IdsTree, x: number, y: number, w: number, h: number) {
-    if (!node) return
+    if (!node)
+      return
     if (node.t === 'char') {
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-      text.setAttribute('x', String(x + w / 2))
-      text.setAttribute('y', String(y + h * 0.78))
-      text.setAttribute('text-anchor', 'middle')
-      text.setAttribute('font-size', String(Math.min(w, h) * 0.8))
-      text.textContent = node.c
-      svg.appendChild(text)
+      const glyph = GLYPHS[node.c]
+      if (glyph) {
+        const scale = Math.min(w, h) * 0.8 / UNITS_PER_EM
+        const contentW = glyph.w * scale
+        const contentH = glyph.h * scale
+        const tx = x + (w - contentW) / 2 - glyph.x * scale
+        const ty = y + (h - contentH) / 2 - glyph.y * scale
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+        path.setAttribute('d', glyph.d)
+        path.setAttribute('transform', `translate(${tx}, ${ty}) scale(${scale})`)
+        svg.appendChild(path)
+      }
       return
     }
 
@@ -104,7 +114,7 @@ function replaceIdsInCodeElements(): void {
       return
     }
 
-    const fontSize = parseFloat(getComputedStyle(code).fontSize) || 16
+    const fontSize = Number.parseFloat(getComputedStyle(code).fontSize) || 16
     const svg = renderIds(tree, 100)
     svg.style.width = `${fontSize}px`
     svg.style.height = `${fontSize}px`
@@ -114,7 +124,6 @@ function replaceIdsInCodeElements(): void {
 
     code.textContent = ''
     code.appendChild(svg)
-    code.style.fontFamily = 'inherit'
     code.setAttribute('data-ids-rendered', 'yes')
   })
 }
@@ -122,10 +131,12 @@ function replaceIdsInCodeElements(): void {
 let started = false
 
 export function startIdsRenderer(): void {
-  if (started) return
+  if (started)
+    return
   started = true
 
-  if (typeof window === 'undefined' || typeof document === 'undefined') return
+  if (typeof window === 'undefined' || typeof document === 'undefined')
+    return
 
   function run(): void {
     replaceIdsInCodeElements()
@@ -133,7 +144,8 @@ export function startIdsRenderer(): void {
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run)
-  } else {
+  }
+  else {
     run()
   }
 
