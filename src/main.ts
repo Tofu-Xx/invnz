@@ -17,7 +17,7 @@ function match<T extends Record<string, string>>(
 // 【核心步骤一】标准汉语拼音 → 注音拼音（pinin）
 // 输入标准拼音（如 "zhong1"、"yu"），输出双字母注音拼音（如 "zhug"、"v"）
 // 转换流水线：v→ü 归一 → 零声母整体处理 → 声母提取&映射 → 韵母提取&映射（jqx 后 u 变 ü）
-export function pinyin2pinin(pinyin: string) {
+export function pinyin2invn(pinyin: string) {
   // 实际入参 pinyin：标准拼音字符串（无声调，可能有 v）
   pinyin = pinyin.replace(/v/g, 'ü')
   // 零声母查找：匹配 voidInitialMap 中 yi/wu/yu 等整体音节
@@ -60,7 +60,7 @@ export function pinyin2pinin(pinyin: string) {
 // 【核心步骤二】注音拼音（pinin）→ 汉字部件组合字符串
 // 输入如 "zhug"，输出如 "⿰止⿹勹"（由 ⿰⿱⿸⿹⿵ 等部首指示符 + 部件构成）
 // 解析策略：从左到右贪婪匹配，优先匹配声母 initial → 元音 vowel → 介音 final（介音需回退重组）
-export function pinin2invnzChars(pinin: string) {
+export function invn2invnz(pinin: string) {
   // 待返回的结果栈，每项为 Pinin2Hanz 子表查出的部件组合字（或 undefined 占位）
   const result: (string | undefined)[] = []
   // 逐字符游标解析，每轮消耗 pinin 前缀直到耗尽

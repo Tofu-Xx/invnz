@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { pinin2invnzChars, pinyin2pinin } from '../src/main'
+import { invn2invnz, pinyin2invn } from '../src/main'
 
 const DATA: [string, string, string][] = [
   // y开头
@@ -51,8 +51,8 @@ describe('零声母', () => {
   it.each(DATA)(
     '%s → %s → %s',
     (pinyin, pinin, invnz) => {
-      expect(pinyin2pinin(pinyin)).toBe(pinin)
-      expect(pinin2invnzChars(pinin)).toBe(invnz)
+      expect(pinyin2invn(pinyin)).toBe(pinin)
+      expect(invn2invnz(pinin)).toBe(invnz)
     },
   )
 })

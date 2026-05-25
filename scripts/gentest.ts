@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { finalMap } from '../src/data'
-import { pinin2invnzChars, pinyin2pinin } from '../src/main'
+import { invn2invnz, pinyin2invn } from '../src/main'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const TEST_DIR = path.resolve(__dirname, '../test')
@@ -123,8 +123,8 @@ function add(initial: string, finalCol: string, pinyin: string) {
   else group = 'bpmf'
 
   try {
-    const pinin = pinyin2pinin(pinyin)
-    const invnz = pinin2invnzChars(pinin)
+    const pinin = pinyin2invn(pinyin)
+    const invnz = invn2invnz(pinin)
     all.push({ group, finalCol, pinyin, pinin, invnz })
   }
   catch {
@@ -134,8 +134,8 @@ function add(initial: string, finalCol: string, pinyin: string) {
   if (initial === 'n' && finalCol.startsWith('ü')) {
     const vPy = pinyin.replace('ü', 'v')
     try {
-      const pinin = pinyin2pinin(vPy)
-      const invnz = pinin2invnzChars(pinin)
+      const pinin = pinyin2invn(vPy)
+      const invnz = invn2invnz(pinin)
       all.push({ group, finalCol, pinyin: vPy, pinin, invnz })
     }
     catch { /* skip */ }
@@ -144,8 +144,8 @@ function add(initial: string, finalCol: string, pinyin: string) {
   if (initial === 'l' && finalCol.startsWith('ü')) {
     const vPy = pinyin.replace('ü', 'v')
     try {
-      const pinin = pinyin2pinin(vPy)
-      const invnz = pinin2invnzChars(pinin)
+      const pinin = pinyin2invn(vPy)
+      const invnz = invn2invnz(pinin)
       all.push({ group, finalCol, pinyin: vPy, pinin, invnz })
     }
     catch { /* skip */ }

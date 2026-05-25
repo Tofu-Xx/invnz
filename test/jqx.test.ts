@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { pinin2invnzChars, pinyin2pinin } from '../src/main'
+import { invn2invnz, pinyin2invn } from '../src/main'
 
 const DATA: [string, string, string][] = [
   // i (前)
@@ -69,8 +69,8 @@ describe('j q x', () => {
   it.each(DATA)(
     '%s → %s → %s',
     (pinyin, pinin, invnz) => {
-      expect(pinyin2pinin(pinyin)).toBe(pinin)
-      expect(pinin2invnzChars(pinin)).toBe(invnz)
+      expect(pinyin2invn(pinyin)).toBe(pinin)
+      expect(invn2invnz(pinin)).toBe(invnz)
     },
   )
 })
