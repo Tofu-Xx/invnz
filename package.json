@@ -29,7 +29,6 @@
     "dev": "tsup --watch",
     "release": "bumpp -no-push && nr build && pnpm publish",
     "pinyin": "esno scripts/pinyin.ts",
-    "invn": "esno scripts/invn.ts",
     "gentest": "esno scripts/gentest.ts",
     "test": "vitest run",
     "test:fail": "vitest run --reporter=./scripts/reporter.ts",

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import process from 'node:process'
-import { pinyin2invn, pinyin2invnz } from '../src/main'
+import { invnma2invnz, pinyin2invnma } from '../src/main'
 
 const input = process.argv.slice(2)
 
@@ -11,7 +11,7 @@ if (input.length === 0) {
 }
 
 input.forEach((pinyin) => {
-  const invn = pinyin2invn(pinyin)
-  const invnz = pinyin2invnz(pinyin)
-  console.log(`${pinyin} -> ${invn} -> ${invnz}`)
+  const invnma = pinyin2invnma(pinyin)
+  const invnz = invnma2invnz(pinyin)
+  console.log(`${pinyin} -> ${invnma} -> ${invnz}`)
 })

@@ -4,44 +4,44 @@ function phoneme2wordroot(phoneme: string | string[], wordroot: string) {
     wordroot,
   }
 }
-export const vowelMap = [
-  /* 韵头 */
+export const vowelPhonemeMap = [
+  /* 介音，后面可能会接其他vowel phoneme */
   phoneme2wordroot(['i', 'yi'], '⿱一'),
   phoneme2wordroot(['u', 'wu'], '⿱五'),
-  phoneme2wordroot(['ü', 'v', 'yu'], '⿱雨'),
-  /* 韵腹 */
-  phoneme2wordroot(['-a', 'ba'], '八'), // 㐅 乂
-  phoneme2wordroot(['-wo', 'uo', 'huo'], '火'), //
-  phoneme2wordroot(['-e', 'ge'], '戈'), // 㔾
-  phoneme2wordroot(['-ai', 'cai'], '才'), // 乂歹
-  phoneme2wordroot(['-ei', 'pei'], '巿'), //
-  phoneme2wordroot(['-ao', 'dao'], '刀'), //
-  phoneme2wordroot(['-ou', 'o', 'kou'], '口'), // 禺
+  phoneme2wordroot(['v', 'ü', 'yu'], '⿱雨'),
   //
-  phoneme2wordroot(['-ong', 'gong'], '工'),
+  phoneme2wordroot(['ong', 'gong'], '工'),
   //
   phoneme2wordroot(['ie', 'ye'], '也'),
-  phoneme2wordroot(['üe', 'yue'], '月'),
-  phoneme2wordroot(['iong', 'yong'], '用'),
+  phoneme2wordroot(['ve', 'üe', 'yue'], '月'),
+  phoneme2wordroot(['vong', 'iong', 'yong'], '用'),
   phoneme2wordroot('er', '耳'),
-  /* 韵尾 */
-  phoneme2wordroot('en', '⿱冂'),
-  phoneme2wordroot('an', '⿱𰃦'),
+  /* （2.2）须提前 */
+  phoneme2wordroot('en', '⿵冂'),
+  phoneme2wordroot('an', '⿵𰃦'),
   phoneme2wordroot('eng', '⿹𠃌'),
   phoneme2wordroot('ang', '⿹勹'),
+  /* （2.3）零声母是前面加上‘丨’ */
+  phoneme2wordroot(['-a', 'ba'], '八'),
+  phoneme2wordroot(['-wo', 'uo', 'huo'], '火'),
+  phoneme2wordroot(['-e', 'ge'], '戈'),
+  phoneme2wordroot(['-ai', 'cai'], '才'),
+  phoneme2wordroot(['-ei', 'pei'], '巿'),
+  phoneme2wordroot(['-ao', 'dao'], '刀'),
+  phoneme2wordroot(['-ou', 'o', 'kou'], '口'),
 ] as const
 
-export const consonantMap = [
+export const consonantPhonemeMap = [
   phoneme2wordroot('', '⿰丨'),
   //
   phoneme2wordroot('g', '⿰𠂎'), // 𠂎
   phoneme2wordroot('k', '⿰丬'), // 丬
   phoneme2wordroot('h', '⿰丩'), // 丩
   //
-  phoneme2wordroot(['d', 'da'], '⿱大'), //
-  phoneme2wordroot(['t', 'tuo'], '⿰乇'), //
-  phoneme2wordroot(['n', 'na'], '⿰𭃂'), // 𭃂
-  phoneme2wordroot(['l', 'le'], '⿰了'), // 了
+  phoneme2wordroot(['d', 'da'], '⿱大'), // ⿱𠂊
+  phoneme2wordroot(['t', 'tuo'], '⿰乇'), // ⿰七
+  phoneme2wordroot(['n', 'na'], '⿰𭃂'), // ⿱冖
+  phoneme2wordroot(['l', 'le'], '⿰了'), // ⿺𠃊
   //
   phoneme2wordroot(['b', 'bu'], '⿱不'),
   phoneme2wordroot(['p', 'pu'], '⿱攵'),
