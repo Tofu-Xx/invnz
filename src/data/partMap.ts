@@ -34,9 +34,9 @@ export const vowelMap = [
 export const consonantMap = [
   phoneme2wordroot('', '⿰丨'),
   //
-  phoneme2wordroot(['g', ''], '⿰𠂎'), // 𠂎
-  phoneme2wordroot(['k', ''], '⿰丬'), // 丬
-  phoneme2wordroot(['h', ''], '⿰丩'), // 丩
+  phoneme2wordroot('g', '⿰𠂎'), // 𠂎
+  phoneme2wordroot('k', '⿰丬'), // 丬
+  phoneme2wordroot('h', '⿰丩'), // 丩
   //
   phoneme2wordroot(['d', 'da'], '⿱大'), //
   phoneme2wordroot(['t', 'tuo'], '⿰乇'), //
