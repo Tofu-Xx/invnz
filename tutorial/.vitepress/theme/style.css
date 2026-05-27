@@ -1,159 +1,551 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+/* ========================================
+   invnz — 水墨画风格主题
+   宣纸白 · 墨黑 · 朱砂红
+   ======================================== */
 
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-  --font-serif: "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", "Songti SC", serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-}
+/* ── Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&family=ZCOOL+QingKe+HuangYou&display=swap');
 
 :root {
-  --radius: 0.5rem;
-  --background: #f5f0e8;
-  --foreground: #1a1a1a;
-  --card: #faf6ee;
-  --card-foreground: #1a1a1a;
-  --popover: #faf6ee;
-  --popover-foreground: #1a1a1a;
-  --primary: #b53120;
-  --primary-foreground: #faf6ee;
-  --secondary: #ede4d0;
-  --secondary-foreground: #1a1a1a;
-  --muted: #ede4d0;
-  --muted-foreground: #8a7e6b;
-  --accent: #e8dccc;
-  --accent-foreground: #1a1a1a;
-  --destructive: #b53120;
-  --border: #d4ccc0;
-  --input: #d4ccc0;
-  --ring: #b53120;
+  /* 主色调 */
+  --ink-black: #1a1a1a;
+  --paper-white: #f5f5dc;
+  --paper-warm: #f0ead6;
+  --vermillion: #b22222;
+  --vermillion-light: #d44a30;
+  --vermillion-dark: #8b1a1a;
+  --ink-light: #4a4a4a;
+  --ink-lighter: #8a8a7a;
+  --border-color: #c8c0a8;
+  --card-bg: #faf6ee;
+  --hover-bg: #ede4d0;
 
-  /* VitePress 覆盖 — 古典亮色 */
-  --vp-c-bg: #f5f0e8;
-  --vp-c-bg-alt: #efe8db;
-  --vp-c-bg-elv: #faf6ee;
-  --vp-c-bg-soft: #efe8db;
-  --vp-c-text-1: #1a1a1a;
-  --vp-c-text-2: #4a4438;
-  --vp-c-text-3: #8a7e6b;
-  --vp-c-border: #d4ccc0;
-  --vp-c-brand-1: #b53120;
-  --vp-c-brand-2: #8a2614;
-  --vp-c-brand-3: #d44a30;
+  /* VitePress 变量覆盖 —— 水墨风 */
+  --vp-c-bg: var(--paper-white);
+  --vp-c-bg-alt: #efe8d8;
+  --vp-c-bg-elv: var(--card-bg);
+  --vp-c-bg-soft: #e8e0cc;
+  --vp-c-text-1: var(--ink-black);
+  --vp-c-text-2: var(--ink-light);
+  --vp-c-text-3: var(--ink-lighter);
+  --vp-c-border: var(--border-color);
+  --vp-c-brand-1: var(--vermillion);
+  --vp-c-brand-2: var(--vermillion-dark);
+  --vp-c-brand-3: var(--vermillion-light);
   --vp-c-brand-soft: #f0e0d0;
-  --vp-nav-bg-color: #f5f0e8;
-  --vp-sidebar-bg-color: #f5f0e8;
+  --vp-nav-bg-color: var(--paper-warm);
+  --vp-sidebar-bg-color: var(--paper-white);
   --vp-c-default-1: var(--vp-c-border);
   --vp-c-default-2: var(--vp-c-border);
   --vp-c-default-3: var(--vp-c-border);
   --vp-c-default-soft: var(--vp-c-bg-soft);
   --vp-c-divider: var(--vp-c-border);
+  --vp-code-color: var(--vermillion-dark);
+  --vp-code-bg: #f8f0e0;
+  --vp-code-tab-bg: #ede4d0;
+  --vp-code-tab-divider: var(--border-color);
+
+  /* 字体 */
+  --font-calligraphy: 'Ma Shan Zheng', cursive;
+  --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', serif;
+  --font-decorative: 'ZCOOL XiaoWei', 'KaiTi', serif;
+  --font-nav: 'ZCOOL QingKe HuangYou', 'KaiTi', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-.dark {
-  --background: #2a2520;
-  --foreground: #d4cdc0;
-  --card: #352f28;
-  --card-foreground: #d4cdc0;
-  --popover: #352f28;
-  --popover-foreground: #d4cdc0;
-  --primary: #d46a5a;
-  --primary-foreground: #2a2520;
-  --secondary: #3d362e;
-  --secondary-foreground: #d4cdc0;
-  --muted: #3d362e;
-  --muted-foreground: #8a7e6b;
-  --accent: #4a4238;
-  --accent-foreground: #d4cdc0;
-  --destructive: #d46a5a;
-  --border: #4a4438;
-  --input: #4a4438;
-  --ring: #d46a5a;
-
-  /* VitePress 覆盖 — 古典暗色 */
-  --vp-c-bg: #2a2520;
-  --vp-c-bg-alt: #221e1a;
-  --vp-c-bg-elv: #352f28;
-  --vp-c-bg-soft: #221e1a;
-  --vp-c-text-1: #d4cdc0;
-  --vp-c-text-2: #a09888;
-  --vp-c-text-3: #7a7060;
-  --vp-c-border: #4a4438;
-  --vp-c-brand-1: #d46a5a;
-  --vp-c-brand-2: #b55a4a;
-  --vp-c-brand-3: #e87a6a;
-  --vp-c-brand-soft: #3d2a22;
-  --vp-nav-bg-color: #2a2520;
-  --vp-sidebar-bg-color: #2a2520;
-  --vp-c-divider: var(--vp-c-border);
-}
-
-/* 宣纸噪声纹理 (SVG feTurbulence) */
+/* ── 宣纸纹理 ── */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.035;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
 }
 
-/* 全局字体 */
-body, .VPDoc, .VPNav, .VPSidebar {
+/* ── 背景山水晕染 ── */
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%;
+  right: -10%;
+  width: 60%;
+  height: 80%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(ellipse at 70% 30%, rgba(100,120,100,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 70%, rgba(80,100,120,0.04) 0%, transparent 50%);
+}
+
+/* ── 全局字体 ── */
+body {
+  font-family: var(--font-serif), serif !important;
+  color: var(--ink-black);
+  line-height: 1.8;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-calligraphy), cursive !important;
+  letter-spacing: 0.05em;
+}
+
+h1 {
+  font-size: 2.4em !important;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--vermillion);
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.VPContent h1::after {
+  margin-left: 0;
+}
+
+/* ── 导航 ── */
+.VPNavBar {
+  background-color: var(--paper-warm) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  font-family: var(--font-nav), serif !important;
+  letter-spacing: 0.08em;
+}
+
+.VPNavBar .title {
+  font-family: var(--font-calligraphy), cursive !important;
+  font-size: 1.4em !important;
+  color: var(--ink-black) !important;
+}
+
+.VPNavBarMenuLink {
+  position: relative;
+  transition: color 0.3s;
+}
+
+.VPNavBarMenuLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--vermillion);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.VPNavBarMenuLink:hover::after {
+  width: 80%;
+}
+
+/* ── 侧栏 ── */
+.VPSidebar {
+  background-color: var(--paper-white) !important;
+  border-right: 1px solid var(--border-color) !important;
   font-family: var(--font-serif), serif !important;
 }
 
-/* VitePress 导航/侧栏古典化 */
-.VPNavBar, .VPNavBar.has-sidebar {
-  background-color: var(--vp-nav-bg-color) !important;
-  border-bottom: 1px solid var(--vp-c-border) !important;
-}
-.VPSidebar {
-  background-color: var(--vp-sidebar-bg-color) !important;
-  border-right: 1px solid var(--vp-c-border) !important;
-}
 .VPSidebarItem .text {
-  color: var(--vp-c-text-2) !important;
-}
-.VPSidebarItem.is-active .text {
-  color: var(--vp-c-brand-1) !important;
-}
-.VPFooter {
-  border-top: 1px solid var(--vp-c-border) !important;
-}
-.content-container {
-  max-width: 1200px !important;
+  color: var(--ink-light) !important;
+  transition: color 0.3s;
 }
 
+.VPSidebarItem.is-active .text {
+  color: var(--vermillion) !important;
+  font-weight: 600;
+}
+
+/* ── 首页 Hero ── */
+.VPHomeHero .name {
+  font-family: var(--font-calligraphy), cursive !important;
+  font-size: 4em !important;
+  color: var(--ink-black) !important;
+}
+
+.VPHomeHero .text {
+  font-family: var(--font-serif), serif !important;
+  color: var(--ink-light) !important;
+}
+
+.VPHomeHero .tagline {
+  font-family: var(--font-decorative), serif !important;
+  color: var(--ink-lighter) !important;
+}
+
+.VPHomeHero .actions .brand {
+  background-color: var(--vermillion) !important;
+  border-color: var(--vermillion) !important;
+  color: white !important;
+  font-family: var(--font-nav), serif !important;
+  letter-spacing: 0.1em;
+  transition: all 0.3s;
+}
+
+.VPHomeHero .actions .brand:hover {
+  background-color: var(--vermillion-dark) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(178,34,34,0.3);
+}
+
+.VPHomeHero .actions .alt {
+  border-color: var(--ink-black) !important;
+  color: var(--ink-black) !important;
+  font-family: var(--font-nav), serif !important;
+  transition: all 0.3s;
+}
+
+.VPHomeHero .actions .alt:hover {
+  background-color: var(--ink-black) !important;
+  color: var(--paper-white) !important;
+}
+
+/* ── Feature 卡片 ── */
+.VPHomeFeatures .container .item {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  padding: 24px !important;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.VPHomeFeatures .container .item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border-color: var(--vermillion) !important;
+}
+
+.VPHomeFeatures .container .item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 0;
+  background: var(--vermillion);
+  transition: height 0.4s ease;
+}
+
+.VPHomeFeatures .container .item:hover::before {
+  height: 100%;
+}
+
+.VPHomeFeatures .container .item .title {
+  font-family: var(--font-calligraphy), cursive !important;
+  font-size: 1.3em !important;
+  color: var(--ink-black) !important;
+}
+
+.VPHomeFeatures .container .item .details {
+  font-family: var(--font-serif), serif !important;
+  color: var(--ink-light) !important;
+  line-height: 1.8;
+}
+
+/* ── 页面内容 ── */
+.vp-doc {
+  font-family: var(--font-serif), serif !important;
+}
+
+.vp-doc p {
+  line-height: 2;
+  margin: 1.2em 0;
+  text-indent: 0;
+}
+
+.vp-doc h2 {
+  font-family: var(--font-calligraphy), cursive !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding-bottom: 8px;
+  margin-top: 48px;
+  position: relative;
+}
+
+.vp-doc h2::before {
+  content: '◆';
+  color: var(--vermillion);
+  font-size: 0.6em;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.vp-doc h3 {
+  font-family: var(--font-calligraphy), cursive !important;
+  color: var(--ink-black) !important;
+}
+
+.vp-doc code {
+  font-family: var(--font-mono), monospace !important;
+  color: var(--vermillion-dark) !important;
+  background: #f8f0e0 !important;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.9em;
+}
+
+.vp-doc a {
+  color: var(--vermillion) !important;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.vp-doc a:hover {
+  border-bottom-color: var(--vermillion);
+}
+
+/* ── 表格 ── */
+.vp-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 0.95em;
+}
+
+.vp-doc th {
+  background: var(--paper-warm);
+  font-family: var(--font-nav), serif !important;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid var(--border-color);
+  padding: 10px 14px;
+  text-align: left;
+  color: var(--ink-black);
+}
+
+.vp-doc td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.vp-doc tr:hover td {
+  background: var(--hover-bg);
+}
+
+/* ── 块引用 ── */
+.vp-doc blockquote {
+  border-left: 4px solid var(--vermillion) !important;
+  background: #f8f0e0;
+  padding: 12px 20px;
+  margin: 20px 0;
+  border-radius: 0 8px 8px 0;
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+/* ── 提示框 ── */
+.custom-block {
+  border-radius: 8px !important;
+}
+
+.custom-block.tip {
+  border-color: var(--vermillion) !important;
+  background: #fcf4ec !important;
+}
+
+.custom-block.tip .custom-block-title {
+  color: var(--vermillion) !important;
+}
+
+/* ── 朱砂印章 ── */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--vermillion);
+  border-radius: 4px;
+  color: var(--vermillion);
+  font-family: var(--font-calligraphy), cursive;
+  font-size: 18px;
+  transform: rotate(-3deg);
+  position: relative;
+}
+
+.seal::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(178,34,34,0.3);
+  border-radius: 2px;
+}
+
+/* ── 分隔线 ── */
+.vp-doc hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+  margin: 40px 0;
+}
+
+/* ── 页脚 ── */
+.VPFooter {
+  border-top: 1px solid var(--border-color) !important;
+  background: var(--paper-warm) !important;
+  font-family: var(--font-serif), serif !important;
+  color: var(--ink-lighter) !important;
+}
+
+/* ── 印章装饰（首页专用） ── */
+.home-seal {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 2px solid var(--vermillion);
+  color: var(--vermillion);
+  font-family: var(--font-calligraphy), cursive;
+  font-size: 24px;
+  transform: rotate(-5deg);
+  margin: 20px auto;
+}
+
+/* ── 代码块 ── */
+.vp-doc div[class*=language-] {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  background: #faf6ee !important;
+}
+
+.vp-doc .lang {
+  font-family: var(--font-nav), serif !important;
+  letter-spacing: 0.05em;
+}
+
+/* ── IDS/SVG 渲染 ── */
+code svg[data-ids] {
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+code svg[data-ids]:hover {
+  transform: scale(1.15);
+}
+
+/* ── 互动演示 ── */
+.playground-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 32px;
+  margin: 32px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.playground-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: var(--font-serif), serif;
+  font-size: 1.2em;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink-black);
+  outline: none;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.playground-input:focus {
+  border-color: var(--vermillion);
+  box-shadow: 0 0 0 3px rgba(178,34,34,0.1);
+}
+
+.playground-output {
+  margin-top: 24px;
+  padding: 24px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  min-height: 80px;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.pipeline-step:last-child {
+  border-bottom: none;
+}
+
+.pipeline-label {
+  font-family: var(--font-nav), serif;
+  font-size: 0.85em;
+  color: var(--ink-lighter);
+  min-width: 80px;
+  letter-spacing: 0.05em;
+}
+
+.pipeline-value {
+  font-family: var(--font-serif), serif;
+  font-size: 1.1em;
+  color: var(--ink-black);
+}
+
+.pipeline-arrow {
+  color: var(--vermillion);
+  font-size: 1.3em;
+}
+
+.invnz-display {
+  font-size: 2em;
+  padding: 16px;
+  text-align: center;
+  font-family: var(--font-serif), serif;
+  letter-spacing: 0.15em;
+}
+
+/* ── 竹叶装饰 ── */
+.bamboo-leaf {
+  position: fixed;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── 窗棂分割线 ── */
+.window-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0;
+  color: var(--ink-lighter);
+}
+
+.window-divider::before,
+.window-divider::after {
+  content: '┅┅┅┅┅┅┅┅┅┅';
+  flex: 1;
+  letter-spacing: -2px;
+  font-size: 0.7em;
+  color: var(--border-color);
+  overflow: hidden;
+}
+
+/* ── 响应式 ── */
+@media (max-width: 768px) {
+  .VPHomeHero .name {
+    font-size: 2.4em !important;
+  }
+  .pipeline-step {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* ── 快速参考页 ── */
 .quickref-page .VPDoc .container {
   max-width: none !important;
 }
@@ -164,22 +556,15 @@ body, .VPDoc, .VPNav, .VPSidebar {
 .quickref-page .vp-doc {
   padding: 0 !important;
   margin: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  min-height: calc(100vh - var(--vp-nav-height, 55px)) !important;
 }
 .quickref-page .vp-doc h1 {
-  margin: 0.5rem 0.75rem 0.25rem;
-  flex-shrink: 0;
+  margin: 0.75rem;
 }
 
-@layer base {
-  *,
-  ::after,
-  ::before {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+/* ── IDS 字符的 SVG 渲染 ── */
+.ids-svg-inline {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.2em;
+  height: 1.2em;
 }
