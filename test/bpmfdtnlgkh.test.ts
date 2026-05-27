@@ -4,18 +4,25 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { invnma2invnz, pinyin2invnma } from '../src/main'
+import { pinyin2invnma } from '../src/main'
 
-const DATA: [string, string, string][] = [
-
+const DATA: [string, string][] = [
+  ['ba', 'ba'],
+  ['ban', 'ban'],
+  ['bian', 'biean'],
+  ['ti', 'ti'],
+  ['tian', 'tiean'],
+  ['guan', 'guan'],
+  ['huo', 'huo'],
+  ['po', 'puo'],
+  ['hong', 'hong'],
 ]
 
 describe('普通声母（b p m f d t n l g k h）', () => {
   it.each(DATA)(
-    '%s → %s → %s',
-    (pinyin, invnma, invnz) => {
+    '%s → %s',
+    (pinyin, invnma) => {
       expect(pinyin2invnma(pinyin)).toBe(invnma)
-      expect(invnma2invnz(invnma)).toBe(invnz)
     },
   )
 })

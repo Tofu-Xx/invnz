@@ -4,18 +4,22 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { invnma2invnz, pinyin2invnma } from '../src/main'
+import { pinyin2invnma } from '../src/main'
 
-const DATA: [string, string, string][] = [
-
+const DATA: [string, string][] = [
+  ['xiong', 'xiong'],
+  ['xia', 'xa'],
+  ['xian', 'xiean'],
+  ['xue', 'xve'],
+  ['ju', 'jv'],
+  ['ji', 'j'],
 ]
 
 describe('j q x', () => {
   it.each(DATA)(
-    '%s → %s → %s',
-    (pinyin, invnma, invnz) => {
+    '%s → %s',
+    (pinyin, invnma) => {
       expect(pinyin2invnma(pinyin)).toBe(invnma)
-      expect(invnma2invnz(invnma)).toBe(invnz)
     },
   )
 })

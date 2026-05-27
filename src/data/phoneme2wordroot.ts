@@ -26,7 +26,7 @@ export const vowelPhonemeMap = [
   phoneme2wordroot(['-ao', 'dao'], '刀'),
   phoneme2wordroot(['-ou', '-o', 'kou'], '口'),
   // 无零声母
-  phoneme2wordroot(['ong', 'gong'], '工'),
+  phoneme2wordroot(['-ong', 'gong'], '工'),
   // 只做零声母
   phoneme2wordroot('er', '耳'),
 ] as const
@@ -48,15 +48,15 @@ export const consonantPhonemeMap = [
   phoneme2wordroot(['m', 'mu'], '⿰木'),
   phoneme2wordroot(['f', 'fu'], '⿱父'),
   // 默认介音i
-  phoneme2wordroot('j', '⿱几'),
-  phoneme2wordroot('q', '⿱七'),
-  phoneme2wordroot('x', '⿱西'),
+  phoneme2wordroot(['j', 'ji'], '⿱几'),
+  phoneme2wordroot(['q', 'qi'], '⿱七'),
+  phoneme2wordroot(['x', 'xi'], '⿱西'),
   // 假声母i
-  phoneme2wordroot('z', '⿰子'),
-  phoneme2wordroot('c', '⿰朿'),
-  phoneme2wordroot('s', '⿱四'),
-  phoneme2wordroot('r', '⿰日'),
-  phoneme2wordroot('zh', '⿱止'),
-  phoneme2wordroot('ch', '⿱尺'),
-  phoneme2wordroot('sh', '⿸尸'),
+  phoneme2wordroot(['z', 'zi'], '⿰子'),
+  phoneme2wordroot(['c', 'ci'], '⿰朿'),
+  phoneme2wordroot(['s', 'si'], '⿱四'),
+  phoneme2wordroot(['r', 'ri'], '⿰日'),
+  phoneme2wordroot(['zh', 'zhi'], '⿱止'),
+  phoneme2wordroot(['ch', 'chi'], '⿱尺'),
+  phoneme2wordroot(['sh', 'shi'], '⿸尸'),
 ] as const
