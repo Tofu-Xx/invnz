@@ -6,6 +6,9 @@ function vowel2phonemes(vowel: string | string[], phonemes: string) {
 }
 
 export const vowel2phonemesMap = [
+  // 只做零声母
+  vowel2phonemes('weng', 'u_eng'),
+  // 其他
   vowel2phonemes(['uai', 'wai'], 'u_ai'),
   vowel2phonemes(['ia', 'ya'], 'i_a'),
   vowel2phonemes(['ua', 'wa'], 'u_a'),
@@ -15,11 +18,11 @@ export const vowel2phonemesMap = [
   vowel2phonemes(['ing', 'ying'], 'i_eng'),
   vowel2phonemes(['in', 'yin'], 'i_en'),
   vowel2phonemes(['un', 'wen'], 'u_en'),
-  vowel2phonemes('weng', 'u_eng'),
   vowel2phonemes(['ün', 'yun'], 'v_en'),
   vowel2phonemes(['ian', 'yan'], 'ie_an'),
   vowel2phonemes(['iang', 'yang'], 'i_ang'),
   vowel2phonemes(['uan', 'wan'], 'u_an'),
   vowel2phonemes(['uang', 'wang'], 'u_ang'),
   vowel2phonemes(['üan', 'yuan'], 've_an'),
+  vowel2phonemes(['iong', 'yong'], 'v_ong'),
 ] as const
