@@ -24,7 +24,7 @@ export const vowelPhonemeMap = [
   phoneme2wordroot(['-ai', 'cai'], '才'),
   phoneme2wordroot(['-ei', 'pei'], '巿'),
   phoneme2wordroot(['-ao', 'dao'], '刀'),
-  phoneme2wordroot(['-ou', 'o', 'kou'], '口'),
+  phoneme2wordroot(['-ou', '-o', 'kou'], '口'),
   // 无零声母
   phoneme2wordroot(['ong', 'gong'], '工'),
   // 只做零声母
