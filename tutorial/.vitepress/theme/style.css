@@ -53,6 +53,31 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
+/* 暗色主题变量（当 <html> 或 <body> 上带 .dark 时生效） */
+.dark, :root.dark {
+  --ink-black: #e6e6e6;
+  --paper-white: #0f0f11;
+  --paper-warm: #0b0b0c;
+  --vermillion: #e06a6a;
+  --vermillion-light: #f28b8b;
+  --vermillion-dark: #b04040;
+  --ink-light: #cfcfcf;
+  --ink-lighter: #9f9f9f;
+  --border-color: rgba(255,255,255,0.06);
+  --card-bg: #111214;
+  --hover-bg: rgba(255,255,255,0.02);
+
+  --vp-c-bg: #0b0b0b;
+  --vp-c-bg-alt: #0f0f10;
+  --vp-c-bg-elv: var(--card-bg);
+  --vp-c-bg-soft: #0e0e0f;
+  --vp-c-text-1: var(--ink-black);
+  --vp-c-text-2: var(--ink-light);
+  --vp-c-text-3: var(--ink-lighter);
+  --vp-c-border: var(--border-color);
+  --vp-nav-bg-color: #0b0b0b;
+}
+
 /* ── 布局工具类：Flex / Grid helpers (tutorial only) ── */
 .d-flex { display: flex !important; }
 .flex-row { flex-direction: row !important; }

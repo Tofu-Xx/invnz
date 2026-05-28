@@ -9,6 +9,11 @@ export default {
   enhanceApp({ app }) {
     app.component('Playground', Playground)
     app.component('RealtimeInput', RealtimeInput)
-    // no-op: previously would auto-render IDS inside <code> elements
+    // apply saved theme on client (if any)
+    if (typeof document !== 'undefined') {
+      const saved = localStorage.getItem('site-theme')
+      if (saved === 'dark') document.documentElement.classList.add('dark')
+      else document.documentElement.classList.remove('dark')
+    }
   },
 }
