@@ -10,8 +10,8 @@ hero:
       text: 快速上手
       link: /guide/quick-start
     - theme: alt
-      text: 实时演示
-      link: #demo
+      text: 音节全表
+      link: /reference/all-syllables
 
 features:
   - title: 一码即得

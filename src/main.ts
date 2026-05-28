@@ -13,7 +13,7 @@ export function getIdsExps(pinyin: string): string {
 const ZU_ZI_API = '/zi/'
 
 export async function getInvnz(pinyinOrIds: string): Promise<string> {
-  let ids = /^[⿰⿲⿱⿳⿸⿺⿹⿽⿵⿷⿶⿼⿴⿻⿾⿿㇯]/.test(pinyinOrIds) ? pinyinOrIds : getIdsExps(pinyinOrIds)
+  const ids = /^[⿰⿲⿱⿳⿸⿺⿹⿽⿵⿷⿶⿼⿴⿻⿾⿿㇯]/.test(pinyinOrIds) ? pinyinOrIds : getIdsExps(pinyinOrIds)
   if (!ids)
     return ''
 

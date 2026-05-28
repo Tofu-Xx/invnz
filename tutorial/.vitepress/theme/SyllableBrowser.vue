@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { pinyinTable } from '../../../src/data/pinyinTable'
 import { pinyin2invenma } from '../../../src/pinyin2invenma'
+import { getIdsExps } from '@invnz/main'
 
 const FINALS = [
   'a',
@@ -90,7 +91,7 @@ const all: Syllable[] = []
 for (const f of FINALS) {
   const p = ZERO[f]
   if (p) {
-    all.push({ pinyin: p, invenma: pinyin2invenma(p), invenz: p })
+    all.push({ pinyin: p, invenma: pinyin2invenma(p), invenz: getIdsExps(p) })
   }
 }
 
@@ -101,7 +102,7 @@ for (const [init, finals] of Object.entries(pinyinTable)) {
     const pinyin = 'jqx'.includes(init) && f.startsWith('ü')
       ? init + f.replace('ü', 'u')
       : init + f
-    all.push({ pinyin, invenma: pinyin2invenma(pinyin), invenz: pinyin })
+    all.push({ pinyin, invenma: pinyin2invenma(pinyin), invenz: getIdsExps(pinyin) })
   }
 }
 
