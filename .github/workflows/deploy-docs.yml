@@ -28,6 +28,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - run: pnpm install --frozen-lockfile
+        working-directory: tutorial
+
       - run: pnpm docs:build
 
       - name: Deploy to Cloudflare Pages

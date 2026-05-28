@@ -10,7 +10,7 @@ export function getIdsExps(pinyin: string): string {
   return invenma2invenz(pinyin2invenma(pinyin))
 }
 
-const ZU_ZI_API = 'https://zu.zi.tools/'
+const ZU_ZI_API = '/zi/'
 
 export async function getInvnz(pinyinOrIds: string): Promise<string> {
   const isIds = /^[⿰⿲⿱⿳⿸⿺⿹⿽⿵⿷⿶⿼⿴⿻⿾⿿㇯]/.test(pinyinOrIds) || pinyinOrIds.length === 1
