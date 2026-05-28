@@ -22,7 +22,7 @@
         <div class="rt-result-item" v-for="(item, i) in pinyinResults" :key="i">
           <div class="rt-result-label">{{ item.pinyin }}</div>
           <div class="rt-result-svg">
-            <code v-if="item.invenz" class="ids-svg-inline rt-large-svg">{{ item.invenz }}</code>
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="64" />
             <span v-else class="rt-na">—</span>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <div class="rt-result-char">{{ item.char }}</div>
           <div class="rt-result-label">{{ item.pinyin || '—' }}</div>
           <div class="rt-result-svg">
-            <code v-if="item.invenz" class="ids-svg-inline rt-large-svg">{{ item.invenz }}</code>
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="64" />
             <span v-else class="rt-na">—</span>
           </div>
         </div>
@@ -62,6 +62,7 @@
 import { ref, computed } from 'vue'
 import { pinyin } from 'pinyin-pro'
 import { getInvnz } from '@invnz/main'
+import InvnzSvg from './InvnzSvg.vue'
 
 const tab = ref<'pinyin' | 'hanzi'>('pinyin')
 const pinyinText = ref('')
@@ -203,10 +204,6 @@ const hanziResults = computed<HanziResult[]>(() => {
   font-size: 1.4em;
   font-family: var(--font-serif), serif;
   color: var(--ink-black);
-}
-
-.rt-large-svg {
-  font-size: 2.8em !important;
 }
 
 .rt-na {

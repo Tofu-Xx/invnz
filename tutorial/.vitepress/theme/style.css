@@ -562,20 +562,15 @@ code svg[data-ids]:hover {
 }
 
 /* ── IDS 字符的 SVG 渲染 ── */
-.ids-svg-inline {
-  display: inline-block;
-  vertical-align: middle;
-  width: 1.2em;
-  height: 1.2em;
+code.ids-rendered {
+  color: transparent !important;
+  background: transparent !important;
+  font-size: 0 !important;
 }
-
-.ids-svg-inline svg {
-  display: inline-block;
-  vertical-align: middle;
+code.ids-rendered svg {
   transition: transform 0.3s ease;
 }
-
-.ids-svg-inline:hover svg {
+code.ids-rendered:hover svg {
   transform: scale(1.15);
 }
 

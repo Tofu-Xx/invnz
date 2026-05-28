@@ -20,7 +20,7 @@ function isIdc(c: string): boolean {
   return IDC.includes(c)
 }
 
-function parseIds(str: string): IdsTree {
+export function parseIds(str: string): IdsTree {
   let pos = 0
   function parse(): IdsTree {
     if (pos >= str.length)
@@ -57,7 +57,7 @@ function createPaths(svg: SVGSVGElement, strokes: string[]) {
 }
 
 /** 直接使用预取的完整 IDS SVG 数据 */
-function renderPrefetched(text: string, size: number): SVGSVGElement | null {
+export function renderPrefetched(text: string, size: number): SVGSVGElement | null {
   const data = IDS_SVGS[text]
   if (!data)
     return null
@@ -68,7 +68,7 @@ function renderPrefetched(text: string, size: number): SVGSVGElement | null {
 }
 
 /** 兜底：用单个字的笔画数据通过 IDS 布局规则组合 */
-function renderFallback(tree: IdsTree, size: number): SVGSVGElement {
+export function renderFallback(tree: IdsTree, size: number): SVGSVGElement {
   const svg = createSvg(size)
   svg.setAttribute('viewBox', `0 0 ${size} ${size}`)
 
@@ -129,40 +129,41 @@ function replaceIdsInCodeElements(): void {
       return
     }
 
+    // Read font-size BEFORE hiding
     const fontSize = Number.parseFloat(getComputedStyle(code).fontSize) || 16
 
-    // 1. Try pre-fetched exact match
-    const preSvg = renderPrefetched(text, 100)
-    if (preSvg) {
-      preSvg.style.width = `${fontSize}px`
-      preSvg.style.height = `${fontSize}px`
-      preSvg.style.overflow = 'visible'
-      preSvg.style.display = 'inline-block'
-      preSvg.style.verticalAlign = 'middle'
+    code.classList.add('ids-rendered')
+
+    const svgsize = Math.max(Math.round(fontSize * 1.2), 20)
+    const svg = renderIds(text, svgsize)
+    if (svg) {
+      svg.setAttribute('data-ids', '')
       code.textContent = ''
-      code.appendChild(preSvg)
+      code.appendChild(svg)
       code.setAttribute('data-ids-rendered', 'yes')
-      return
     }
-
-    // 2. Fallback: parse tree and compose from individual chars
-    const tree = parseIds(text)
-    if (!tree) {
-      code.setAttribute('data-ids-rendered', 'skip')
-      return
-    }
-
-    const fbSvg = renderFallback(tree, 100)
-    fbSvg.style.width = `${fontSize}px`
-    fbSvg.style.height = `${fontSize}px`
-    fbSvg.style.overflow = 'visible'
-    fbSvg.style.display = 'inline-block'
-    fbSvg.style.verticalAlign = 'middle'
-
-    code.textContent = ''
-    code.appendChild(fbSvg)
-    code.setAttribute('data-ids-rendered', 'yes')
   })
+}
+
+export function renderIds(text: string, size: number): SVGSVGElement | null {
+  const preSvg = renderPrefetched(text, 100)
+  if (preSvg) {
+    const ratio = size / 100
+    preSvg.setAttribute('width', String(size))
+    preSvg.setAttribute('height', String(size))
+    preSvg.style.overflow = 'visible'
+    return preSvg
+  }
+
+  const tree = parseIds(text)
+  if (!tree) return null
+
+  const fbSvg = renderFallback(tree, 100)
+  const ratio = size / 100
+  fbSvg.setAttribute('width', String(size))
+  fbSvg.setAttribute('height', String(size))
+  fbSvg.style.overflow = 'visible'
+  return fbSvg
 }
 
 let started = false

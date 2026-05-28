@@ -23,7 +23,7 @@
           <div class="pg-label">{{ item.pinyin }}</div>
           <div class="pg-arrow">→</div>
           <div class="pg-invenz">
-            <code v-if="item.invenz" class="ids-svg-inline pg-svg">{{ item.invenz }}</code>
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="56" />
             <span v-else class="pg-na">—</span>
           </div>
         </div>
@@ -48,7 +48,7 @@
           <div class="pg-label">{{ item.pinyin || '—' }}</div>
           <div class="pg-arrow">→</div>
           <div class="pg-invenz">
-            <code v-if="item.invenz" class="ids-svg-inline pg-svg">{{ item.invenz }}</code>
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="56" />
             <span v-else class="pg-na">—</span>
           </div>
         </div>
@@ -64,30 +64,37 @@
 import { ref, computed } from 'vue'
 import { pinyin } from 'pinyin-pro'
 import { getInvnz } from '@invnz/main'
+import InvnzSvg from './InvnzSvg.vue'
 
 const tab = ref<'pinyin' | 'hanzi'>('pinyin')
 const pinyinInput = ref('')
 const hanziInput = ref('')
 
-interface Item {
-  label: string
+interface PinyinItem {
+  pinyin: string
   invenz: string | null
 }
 
-const pinyinItems = computed<Item[]>(() => {
+interface HanziItem {
+  char: string
+  pinyin: string
+  invenz: string | null
+}
+
+const pinyinItems = computed<PinyinItem[]>(() => {
   const parts = pinyinInput.value.trim().toLowerCase().split(/\s+/)
   if (!parts[0]) return []
-  return parts.map(p => ({ label: p, invenz: getInvnz(p) }))
+  return parts.map(p => ({ pinyin: p, invenz: getInvnz(p) }))
 })
 
-const hanziItems = computed<Item[]>(() => {
-  const items: Item[] = []
+const hanziItems = computed<HanziItem[]>(() => {
+  const items: HanziItem[] = []
   for (const char of hanziInput.value.trim()) {
     if (/[\u4e00-\u9fff]/.test(char)) {
       const py = pinyin(char, { toneType: 'none', type: 'array' })[0] || ''
-      items.push({ label: `${char} (${py})`, invenz: getInvnz(py) })
+      items.push({ char, pinyin: py, invenz: getInvnz(py) })
     } else if (char.trim()) {
-      items.push({ label: char, invenz: null })
+      items.push({ char, pinyin: '', invenz: null })
     }
   }
   return items
@@ -195,10 +202,6 @@ const hanziItems = computed<Item[]>(() => {
 .pg-invenz {
   display: flex;
   align-items: center;
-}
-
-.pg-svg {
-  font-size: 2em !important;
 }
 
 .pg-na {
