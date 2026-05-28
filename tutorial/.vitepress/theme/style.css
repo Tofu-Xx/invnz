@@ -568,3 +568,95 @@ code svg[data-ids]:hover {
   width: 1.2em;
   height: 1.2em;
 }
+
+.ids-svg-inline svg {
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+}
+
+.ids-svg-inline:hover svg {
+  transform: scale(1.15);
+}
+
+/* ── 首页 hero 调整 ── */
+.VPHomeHero {
+  padding-bottom: 0 !important;
+}
+.VPHomeHero .container {
+  max-width: 800px !important;
+}
+.VPHomeHero .main {
+  text-align: center !important;
+}
+.VPHomeHero .name {
+  font-size: 4.5em !important;
+  letter-spacing: 0.08em !important;
+}
+.VPHomeHero .text {
+  font-family: var(--font-calligraphy), cursive !important;
+  font-size: 1.4em !important;
+  margin-top: 0 !important;
+}
+.VPHomeHero .tagline {
+  font-family: var(--font-decorative), serif !important;
+  max-width: 600px !important;
+  margin: 16px auto !important;
+  line-height: 1.8 !important;
+}
+
+/* ── Feature 网格 ── */
+.VPHomeFeatures .container .items {
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* ── 朱砂印章（增强）── */
+.seal-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border: 3px solid var(--vermillion);
+  border-radius: 6px;
+  color: var(--vermillion);
+  font-family: var(--font-calligraphy), cursive;
+  font-size: 22px;
+  transform: rotate(-5deg);
+  position: relative;
+  background: rgba(178,34,34,0.03);
+}
+.seal-large::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(178,34,34,0.25);
+  border-radius: 3px;
+}
+
+/* ── 竹叶装饰 ── */
+.bamboo-leaf {
+  position: fixed;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: -1;
+  font-size: 60px;
+  color: var(--ink-black);
+}
+
+.bamboo-leaf-1 { top: 15%; left: 5%; transform: rotate(-15deg); }
+.bamboo-leaf-2 { bottom: 20%; right: 8%; transform: rotate(25deg) scaleX(-1); }
+.bamboo-leaf-3 { top: 60%; left: 3%; transform: rotate(40deg) scaleY(-1); }
+
+/* ── 英雄区背景晕染 ── */
+.VPHomeHero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 60%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 40% 50%, rgba(100,120,100,0.05) 0%, transparent 60%);
+}

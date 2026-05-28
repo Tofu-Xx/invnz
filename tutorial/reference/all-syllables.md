@@ -1,5 +1,5 @@
 ---
-title: 音节速查
+title: 409 音节全表
 pageClass: quickref-page
 ---
 
@@ -7,6 +7,8 @@ pageClass: quickref-page
 import SyllableBrowser from '@/SyllableBrowser.vue'
 </script>
 
-# 音节速查
+# 409 音节全表
+
+所有标准汉语拼音及其对应的音韵字。
 
 <SyllableBrowser/>
