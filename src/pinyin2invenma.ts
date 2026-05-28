@@ -22,7 +22,7 @@ function dropI(invenma: string): string {
  * pinyin → invenma（音素用 `_` 分隔）。
  * 分解失败返回 null（由 getDirectSyllable 兜底）。
  */
-export function pinyin2invenma(pinyin: string): string | null {
+export function pinyin2invenma(pinyin: string): string {
   pinyin = normalize(pinyin)
 
   // 1. 直接命中 vowel2phonemesMap（复合韵母分解）
@@ -34,7 +34,7 @@ export function pinyin2invenma(pinyin: string): string | null {
     const rest = pinyin.slice(1)
     // yi / ye / yu / yue 已在 vowelPhonemeMap 中
     if (rest === 'i' || rest === 'e' || rest === 'u' || rest === 'ue')
-      return null
+      return pinyin
     // y → i / ü
     const iForm = `i${rest}`
     if (vowel2phonemesMap.has(iForm))
@@ -42,17 +42,17 @@ export function pinyin2invenma(pinyin: string): string | null {
     const vForm = `ü${rest}`
     if (vowel2phonemesMap.has(vForm))
       return vowel2phonemesMap.get(vForm)!
-    return null
+    return pinyin
   }
 
   if (pinyin.startsWith('w')) {
     const rest = pinyin.slice(1)
     if (rest === 'u')
-      return null // wu 由 vowelPhonemeMap 处理
+      return pinyin // wu 由 vowelPhonemeMap 处理
     const uForm = `u${rest}`
     if (vowel2phonemesMap.has(uForm))
       return vowel2phonemesMap.get(uForm)!
-    return null
+    return pinyin
   }
 
   // 3. 声母 + 韵母
@@ -60,7 +60,7 @@ export function pinyin2invenma(pinyin: string): string | null {
     if (pinyin.startsWith(cons)) {
       let final = pinyin.slice(cons.length)
       if (final === '')
-        return null // 纯声母
+        return pinyin // 纯声母
 
       // jqx + u → ü（v）
       if ('jqx'.includes(cons) && final.startsWith('u'))
@@ -79,5 +79,5 @@ export function pinyin2invenma(pinyin: string): string | null {
   }
 
   // 4. 纯韵母（a / o / e / an / en …）由 getDirectSyllable 处理
-  return null
+  return pinyin
 }

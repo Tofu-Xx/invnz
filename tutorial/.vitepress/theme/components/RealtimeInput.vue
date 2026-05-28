@@ -1,67 +1,7 @@
-<template>
-  <div class="realtime-container">
-    <div class="rt-tabs">
-      <button :class="['rt-tab', { active: tab === 'pinyin' }]" @click="tab = 'pinyin'">
-        拼音 → 音韵字
-      </button>
-      <button :class="['rt-tab', { active: tab === 'hanzi' }]" @click="tab = 'hanzi'">
-        汉字 → 音韵字
-      </button>
-    </div>
-
-    <div v-if="tab === 'pinyin'">
-      <div class="rt-input-wrap">
-        <input
-          v-model="pinyinText"
-          class="rt-input"
-          placeholder="输入拼音，空格分隔。例如：zhong tian guang yong"
-        />
-      </div>
-
-      <div class="rt-results" v-if="pinyinResults.length">
-        <div class="rt-result-item" v-for="(item, i) in pinyinResults" :key="i">
-          <div class="rt-result-label">{{ item.pinyin }}</div>
-          <div class="rt-result-svg">
-            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="64" />
-            <span v-else class="rt-na">—</span>
-          </div>
-        </div>
-      </div>
-      <div class="rt-hint" v-else-if="!pinyinText.trim()">
-        输入拼音后实时显示音韵字…
-      </div>
-    </div>
-
-    <div v-if="tab === 'hanzi'">
-      <div class="rt-input-wrap">
-        <input
-          v-model="hanziText"
-          class="rt-input"
-          placeholder="输入汉字。例如：中国山水"
-        />
-      </div>
-
-      <div class="rt-results" v-if="hanziResults.length">
-        <div class="rt-result-item" v-for="(item, i) in hanziResults" :key="i">
-          <div class="rt-result-char">{{ item.char }}</div>
-          <div class="rt-result-label">{{ item.pinyin || '—' }}</div>
-          <div class="rt-result-svg">
-            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="64" />
-            <span v-else class="rt-na">—</span>
-          </div>
-        </div>
-      </div>
-      <div class="rt-hint" v-else-if="!hanziText.trim()">
-        输入汉字后显示每个字的音韵字…
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+// InvnzSvg component will call getInvnz; avoid calling it from computed to prevent eager fetch
 import { pinyin } from 'pinyin-pro'
-import { getInvnz } from '@invnz/main'
+import { computed, ref } from 'vue'
 import InvnzSvg from './InvnzSvg.vue'
 
 const tab = ref<'pinyin' | 'hanzi'>('pinyin')
@@ -81,19 +21,21 @@ interface HanziResult {
 
 const pinyinResults = computed<PinyinResult[]>(() => {
   const parts = pinyinText.value.trim().toLowerCase().split(/\s+/)
-  if (!parts[0]) return []
+  if (!parts[0])
+    return []
   return parts.map(p => ({
     pinyin: p,
-    invenz: getInvnz(p),
+    // pass pinyin through; InvnzSvg will fetch via getInvnz
+    invenz: p,
   }))
 })
 
 const hanziResults = computed<HanziResult[]>(() => {
   const chars: HanziResult[] = []
   for (const char of hanziText.value.trim()) {
-    if (/[\u4e00-\u9fff]/.test(char)) {
+    if (/[\u4E00-\u9FFF]/.test(char)) {
       const py = pinyin(char, { toneType: 'none', type: 'array' })[0] || ''
-      chars.push({ char, pinyin: py, invenz: getInvnz(py) })
+      chars.push({ char, pinyin: py, invenz: py })
     }
     else if (char.trim()) {
       chars.push({ char, pinyin: '', invenz: null })
@@ -102,6 +44,72 @@ const hanziResults = computed<HanziResult[]>(() => {
   return chars
 })
 </script>
+
+<template>
+  <div class="realtime-container">
+    <div class="rt-tabs">
+      <button class="rt-tab" :class="[{ active: tab === 'pinyin' }]" @click="tab = 'pinyin'">
+        拼音 → 音韵字
+      </button>
+      <button class="rt-tab" :class="[{ active: tab === 'hanzi' }]" @click="tab = 'hanzi'">
+        汉字 → 音韵字
+      </button>
+    </div>
+
+    <div v-if="tab === 'pinyin'">
+      <div class="rt-input-wrap">
+        <input
+          v-model="pinyinText"
+          class="rt-input"
+          placeholder="输入拼音，空格分隔。例如：zhong tian guang yong"
+        >
+      </div>
+
+      <div v-if="pinyinResults.length" class="rt-results">
+        <div v-for="(item, i) in pinyinResults" :key="i" class="rt-result-item">
+          <div class="rt-result-label">
+            {{ item.pinyin }}
+          </div>
+          <div class="rt-result-svg">
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="64" />
+            <span v-else class="rt-na">—</span>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="!pinyinText.trim()" class="rt-hint">
+        输入拼音后实时显示音韵字…
+      </div>
+    </div>
+
+    <div v-if="tab === 'hanzi'">
+      <div class="rt-input-wrap">
+        <input
+          v-model="hanziText"
+          class="rt-input"
+          placeholder="输入汉字。例如：中国山水"
+        >
+      </div>
+
+      <div v-if="hanziResults.length" class="rt-results">
+        <div v-for="(item, i) in hanziResults" :key="i" class="rt-result-item">
+          <div class="rt-result-char">
+            {{ item.char }}
+          </div>
+          <div class="rt-result-label">
+            {{ item.pinyin || '—' }}
+          </div>
+          <div class="rt-result-svg">
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="64" />
+            <span v-else class="rt-na">—</span>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="!hanziText.trim()" class="rt-hint">
+        输入汉字后显示每个字的音韵字…
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .realtime-container {

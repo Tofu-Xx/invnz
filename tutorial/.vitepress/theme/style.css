@@ -53,6 +53,23 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
+/* ── 布局工具类：Flex / Grid helpers (tutorial only) ── */
+.d-flex { display: flex !important; }
+.flex-row { flex-direction: row !important; }
+.flex-col { flex-direction: column !important; }
+.items-center { align-items: center !important; }
+.justify-center { justify-content: center !important; }
+.gap-sm { gap: 8px !important; }
+.gap-md { gap: 16px !important; }
+.gap-lg { gap: 24px !important; }
+
+.grid { display: grid !important; }
+.grid-auto-fit { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important; gap: 12px !important; }
+.grid-2 { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+
+
 /* ── 宣纸纹理 ── */
 body::before {
   content: '';

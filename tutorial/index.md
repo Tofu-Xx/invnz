@@ -49,7 +49,6 @@ features:
 
 <div class="pipeline-section">
   <h2>从拼音到音韵字，仅需三步</h2>
-
   <div class="pipeline-steps">
     <div class="pipeline-step">
       <div class="step-number">1</div>
@@ -59,7 +58,6 @@ features:
         <div class="step-example"><code>zhong</code> <span class="step-arrow">→</span> <code>zh</code> + <code>ong</code></div>
       </div>
     </div>
-
     <div class="pipeline-step">
       <div class="step-number">2</div>
       <div class="step-content">
@@ -68,7 +66,6 @@ features:
         <div class="step-example"><code>zh</code> <span class="step-arrow">→</span> <code>⿱止</code>　<code>ong</code> <span class="step-arrow">→</span> <code>工</code></div>
       </div>
     </div>
-
     <div class="pipeline-step">
       <div class="step-number">3</div>
       <div class="step-content">
@@ -84,7 +81,6 @@ features:
 
 <div class="examples-section">
   <h2>一览</h2>
-
   <table>
     <thead>
       <tr><th>拼音</th><th>音韵字</th><th>结构解析</th></tr>

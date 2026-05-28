@@ -16,7 +16,7 @@ yarn add invnz
 import { getInvnz } from 'invnz'
 
 getInvnz('zhong') // => '⿱止工'
-getInvnz('tian')  // => '⿰七⿵𰃦也'
+getInvnz('tian') // => '⿰七⿵𰃦也'
 getInvnz('shuang') // => '⿸尸⿹勹五'
 ```
 
@@ -26,8 +26,8 @@ getInvnz('shuang') // => '⿸尸⿹勹五'
 
 invnz 只有一个核心函数：
 
-| 函数 | 作用 | 示例 |
-|------|------|------|
+| 函数               | 作用          | 示例                   |
+| ------------------ | ------------- | ---------------------- |
 | `getInvnz(pinyin)` | 拼音 → 音韵字 | `'zhong'` → `'⿱止工'` |
 
 所有 409 个标准汉语拼音全覆盖。

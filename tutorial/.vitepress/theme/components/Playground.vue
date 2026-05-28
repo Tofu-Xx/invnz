@@ -1,69 +1,7 @@
-<template>
-  <div class="playground-container">
-    <div class="playground-tabs">
-      <button :class="['playground-tab', { active: tab === 'pinyin' }]" @click="tab = 'pinyin'">
-        拼音 → 音韵字
-      </button>
-      <button :class="['playground-tab', { active: tab === 'hanzi' }]" @click="tab = 'hanzi'">
-        汉字 → 音韵字
-      </button>
-    </div>
-
-    <div v-if="tab === 'pinyin'">
-      <div class="pg-input-wrap">
-        <input
-          v-model="pinyinInput"
-          class="playground-input"
-          placeholder="输入拼音，空格分隔。例如：zhong tian guang yong"
-        />
-      </div>
-
-      <div class="playground-results" v-if="pinyinItems.length">
-        <div class="pg-item" v-for="(item, i) in pinyinItems" :key="i">
-          <div class="pg-label">{{ item.pinyin }}</div>
-          <div class="pg-arrow">→</div>
-          <div class="pg-invenz">
-            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="56" />
-            <span v-else class="pg-na">—</span>
-          </div>
-        </div>
-      </div>
-      <div class="pg-hint" v-else-if="!pinyinInput.trim()">
-        输入拼音后实时显示音韵字…
-      </div>
-    </div>
-
-    <div v-if="tab === 'hanzi'">
-      <div class="pg-input-wrap">
-        <input
-          v-model="hanziInput"
-          class="playground-input"
-          placeholder="输入汉字。例如：中国山水"
-        />
-      </div>
-
-      <div class="playground-results" v-if="hanziItems.length">
-        <div class="pg-item" v-for="(item, i) in hanziItems" :key="i">
-          <div class="pg-char">{{ item.char }}</div>
-          <div class="pg-label">{{ item.pinyin || '—' }}</div>
-          <div class="pg-arrow">→</div>
-          <div class="pg-invenz">
-            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="56" />
-            <span v-else class="pg-na">—</span>
-          </div>
-        </div>
-      </div>
-      <div class="pg-hint" v-else-if="!hanziInput.trim()">
-        输入汉字后显示每个字的音韵字…
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+// InvnzSvg handles fetching; avoid eager network calls here
 import { pinyin } from 'pinyin-pro'
-import { getInvnz } from '@invnz/main'
+import { computed, ref } from 'vue'
 import InvnzSvg from './InvnzSvg.vue'
 
 const tab = ref<'pinyin' | 'hanzi'>('pinyin')
@@ -83,23 +21,97 @@ interface HanziItem {
 
 const pinyinItems = computed<PinyinItem[]>(() => {
   const parts = pinyinInput.value.trim().toLowerCase().split(/\s+/)
-  if (!parts[0]) return []
-  return parts.map(p => ({ pinyin: p, invenz: getInvnz(p) }))
+  if (!parts[0])
+    return []
+  return parts.map(p => ({ pinyin: p, invenz: p }))
 })
 
 const hanziItems = computed<HanziItem[]>(() => {
   const items: HanziItem[] = []
   for (const char of hanziInput.value.trim()) {
-    if (/[\u4e00-\u9fff]/.test(char)) {
-      const py = pinyin(char, { toneType: 'none', type: 'array' })[0] || ''
-      items.push({ char, pinyin: py, invenz: getInvnz(py) })
-    } else if (char.trim()) {
+      if (/[\u4E00-\u9FFF]/.test(char)) {
+        const py = pinyin(char, { toneType: 'none', type: 'array' })[0] || ''
+        items.push({ char, pinyin: py, invenz: py })
+      }
+    else if (char.trim()) {
       items.push({ char, pinyin: '', invenz: null })
     }
   }
   return items
 })
 </script>
+
+<template>
+  <div class="playground-container">
+    <div class="playground-tabs">
+      <button class="playground-tab" :class="[{ active: tab === 'pinyin' }]" @click="tab = 'pinyin'">
+        拼音 → 音韵字
+      </button>
+      <button class="playground-tab" :class="[{ active: tab === 'hanzi' }]" @click="tab = 'hanzi'">
+        汉字 → 音韵字
+      </button>
+    </div>
+
+    <div v-if="tab === 'pinyin'">
+      <div class="pg-input-wrap">
+        <input
+          v-model="pinyinInput"
+          class="playground-input"
+          placeholder="输入拼音，空格分隔。例如：zhong tian guang yong"
+        >
+      </div>
+
+      <div v-if="pinyinItems.length" class="playground-results">
+        <div v-for="(item, i) in pinyinItems" :key="i" class="pg-item">
+          <div class="pg-label">
+            {{ item.pinyin }}
+          </div>
+          <div class="pg-arrow">
+            →
+          </div>
+          <div class="pg-invenz">
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="56" />
+            <span v-else class="pg-na">—</span>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="!pinyinInput.trim()" class="pg-hint">
+        输入拼音后实时显示音韵字…
+      </div>
+    </div>
+
+    <div v-if="tab === 'hanzi'">
+      <div class="pg-input-wrap">
+        <input
+          v-model="hanziInput"
+          class="playground-input"
+          placeholder="输入汉字。例如：中国山水"
+        >
+      </div>
+
+      <div v-if="hanziItems.length" class="playground-results">
+        <div v-for="(item, i) in hanziItems" :key="i" class="pg-item">
+          <div class="pg-char">
+            {{ item.char }}
+          </div>
+          <div class="pg-label">
+            {{ item.pinyin || '—' }}
+          </div>
+          <div class="pg-arrow">
+            →
+          </div>
+          <div class="pg-invenz">
+            <InvnzSvg v-if="item.invenz" :invenz="item.invenz" :size="56" />
+            <span v-else class="pg-na">—</span>
+          </div>
+        </div>
+      </div>
+      <div v-else-if="!hanziInput.trim()" class="pg-hint">
+        输入汉字后显示每个字的音韵字…
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .playground-container {

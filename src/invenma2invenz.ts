@@ -13,7 +13,8 @@ function lookup(phoneme: string): string | null {
   }
   for (const [phonemes, root] of consonantPhonemeMap) {
     const pset = Array.isArray(phonemes) ? phonemes : [phonemes]
-    if (pset.includes(phoneme))
+    // phonemes may be string | string[]; cast to readonly string[] for .includes
+    if ((pset as readonly string[]).includes(phoneme))
       return root
   }
   return null
@@ -22,7 +23,8 @@ function lookup(phoneme: string): string | null {
 function isConsonant(phoneme: string): boolean {
   for (const [phonemes] of consonantPhonemeMap) {
     const pset = Array.isArray(phonemes) ? phonemes : [phonemes]
-    if (pset.includes(phoneme))
+    // phonemes may be string | string[]; cast to readonly string[] for .includes
+    if ((pset as readonly string[]).includes(phoneme))
       return true
   }
   return false
@@ -84,7 +86,7 @@ function stripIdc(root: string): string {
 /**
  * invenma（`_` 分隔的音素串） → invenz（IDS 字根）。
  */
-export function invenma2invenz(invenma: string): string | null {
+export function invenma2invenz(invenma: string): string {
   const parts = invenma.split('_')
 
   let cons = ''
@@ -93,21 +95,23 @@ export function invenma2invenz(invenma: string): string | null {
     : parts
 
   if (vowelParts.length === 0)
-    return null
+    return cons
 
   const roots = vowelParts.map(p => lookup(p)).filter((r): r is string => r !== null)
   if (roots.length === 0)
-    return null
+    return cons
 
   let result: string
 
   if (roots.length === 1 && isCoda(roots[0]) && cons) {
     const consRoot = lookup(cons)
-    if (!consRoot) return null
+    if (!consRoot)
+      return cons
     const consChars = [...consRoot]
     if (consChars.length === 2 && consChars[0] === '⿰') {
       result = codaWrap(roots[0], consChars[1])
-    } else {
+    }
+    else {
       result = consWrap(consRoot, stripIdc(roots[0]))
     }
   }
@@ -115,7 +119,8 @@ export function invenma2invenz(invenma: string): string | null {
     result = combineVowelGroup(roots)
     if (cons) {
       const consRoot = lookup(cons)
-      if (!consRoot) return null
+      if (!consRoot)
+        return cons
       result = consWrap(consRoot, result)
     }
   }

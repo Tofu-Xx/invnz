@@ -1,24 +1,83 @@
 <script setup lang="ts">
-import { getInvnz } from '@invnz/main'
+import { pinyinTable } from '@invnz/data/pinyinTable'
+// Avoid eager network fetches; cards will load on scroll if needed
 import { pinyin2invenma } from '@invnz/pinyin2invenma'
 import { computed, ref } from 'vue'
-import { pinyinTable } from '@invnz/data/pinyinTable'
 
 const FINALS = [
-  'a','o','e','ai','ei','ao','ou','an','en','ang','eng','er',
-  'i','ia','ie','iao','iu','ian','in','iang','ing','iong',
-  'u','ua','uo','uai','ui','uan','un','uang','ong',
-  'ü','üe','üan','ün',
+  'a',
+  'o',
+  'e',
+  'ai',
+  'ei',
+  'ao',
+  'ou',
+  'an',
+  'en',
+  'ang',
+  'eng',
+  'er',
+  'i',
+  'ia',
+  'ie',
+  'iao',
+  'iu',
+  'ian',
+  'in',
+  'iang',
+  'ing',
+  'iong',
+  'u',
+  'ua',
+  'uo',
+  'uai',
+  'ui',
+  'uan',
+  'un',
+  'uang',
+  'ong',
+  'ü',
+  'üe',
+  'üan',
+  'ün',
 ]
 
 const ZERO: Record<string, string> = {
-  a:'a',o:'o',e:'e',ai:'ai',ei:'ei',ao:'ao',ou:'ou',
-  an:'an',en:'en',ang:'ang',eng:'eng',er:'er',
-  i:'yi',ia:'ya',ie:'ye',iao:'yao',iu:'you',
-  ian:'yan',in:'yin',iang:'yang',ing:'ying',iong:'yong',
-  u:'wu',ua:'wa',uo:'wo',uai:'wai',ui:'wei',
-  uan:'wan',un:'wen',uang:'wang',ong:'ong',
-  ü:'yu',üe:'yue',üan:'yuan',ün:'yun',
+  a: 'a',
+  o: 'o',
+  e: 'e',
+  ai: 'ai',
+  ei: 'ei',
+  ao: 'ao',
+  ou: 'ou',
+  an: 'an',
+  en: 'en',
+  ang: 'ang',
+  eng: 'eng',
+  er: 'er',
+  i: 'yi',
+  ia: 'ya',
+  ie: 'ye',
+  iao: 'yao',
+  iu: 'you',
+  ian: 'yan',
+  in: 'yin',
+  iang: 'yang',
+  ing: 'ying',
+  iong: 'yong',
+  u: 'wu',
+  ua: 'wa',
+  uo: 'wo',
+  uai: 'wai',
+  ui: 'wei',
+  uan: 'wan',
+  un: 'wen',
+  uang: 'wang',
+  ong: 'ong',
+  ü: 'yu',
+  üe: 'yue',
+  üan: 'yuan',
+  ün: 'yun',
 }
 
 interface Syllable {
@@ -32,17 +91,18 @@ const all: Syllable[] = []
 for (const f of FINALS) {
   const p = ZERO[f]
   if (p) {
-    all.push({ pinyin: p, invenma: pinyin2invenma(p), invenz: getInvnz(p) })
+    all.push({ pinyin: p, invenma: pinyin2invenma(p), invenz: p })
   }
 }
 
 for (const [init, finals] of Object.entries(pinyinTable)) {
-  if (init === 'zero') continue
+  if (init === 'zero')
+    continue
   for (const f of finals) {
     const pinyin = 'jqx'.includes(init) && f.startsWith('ü')
       ? init + f.replace('ü', 'u')
       : init + f
-    all.push({ pinyin, invenma: pinyin2invenma(pinyin), invenz: getInvnz(pinyin) })
+    all.push({ pinyin, invenma: pinyin2invenma(pinyin), invenz: pinyin })
   }
 }
 
@@ -51,7 +111,8 @@ const currentPage = ref(1)
 const PAGE_SIZE = 50
 
 const filtered = computed(() => {
-  if (!searchQuery.value) return all
+  if (!searchQuery.value)
+    return all
   const q = searchQuery.value.toLowerCase()
   return all.filter(s =>
     s.pinyin.includes(q) || (s.invenma && s.invenma.includes(q)) || (s.invenz && s.invenz.includes(q)),
@@ -82,7 +143,7 @@ function onSearch() {
         placeholder="搜索拼音、音韵码、音韵字…"
         class="sb-input"
         @input="onSearch"
-      />
+      >
       <span class="sb-count">{{ filtered.length }} / {{ all.length }}</span>
     </div>
 
@@ -92,15 +153,23 @@ function onSearch() {
         :key="s.pinyin"
         class="sb-card"
       >
-        <div class="sb-invnz">{{ s.invenz ?? '—' }}</div>
-        <div class="sb-label">{{ s.pinyin }}<span v-if="s.invenma"> · {{ s.invenma }}</span></div>
+        <div class="sb-invnz">
+          {{ s.invenz ?? '—' }}
+        </div>
+        <div class="sb-label">
+          {{ s.pinyin }}<span v-if="s.invenma"> · {{ s.invenma }}</span>
+        </div>
       </div>
     </div>
 
     <div v-if="totalPages > 1" class="sb-pagination">
-      <button :disabled="currentPage <= 1" @click="goPage(currentPage - 1)" class="sb-btn">‹</button>
+      <button :disabled="currentPage <= 1" class="sb-btn" @click="goPage(currentPage - 1)">
+        ‹
+      </button>
       <span class="sb-page-info">{{ currentPage }} / {{ totalPages }}</span>
-      <button :disabled="currentPage >= totalPages" @click="goPage(currentPage + 1)" class="sb-btn">›</button>
+      <button :disabled="currentPage >= totalPages" class="sb-btn" @click="goPage(currentPage + 1)">
+        ›
+      </button>
     </div>
   </div>
 </template>

@@ -38,8 +38,8 @@
     "docs": "vitepress dev tutorial",
     "docs:build": "vitepress build tutorial",
     "docs:preview": "vitepress preview tutorial",
-    "docs:deploy": "bash scripts/deploy-docs.sh",
-    "glyphs": "esno scripts/extract-ids-svgs.ts"
+    "docs:deploy": "bash scripts/deploy-docs.sh"
+
   },
   "dependencies": {
     "@lucide/vue": "^1.16.0",

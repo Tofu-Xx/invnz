@@ -1,7 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
-import { startIdsRenderer } from './ids-renderer'
 import Playground from './components/Playground.vue'
 import RealtimeInput from './components/RealtimeInput.vue'
+// ids-renderer has been removed; no client-side automatic IDS replacement
 import './style.css'
 
 export default {
@@ -9,6 +9,6 @@ export default {
   enhanceApp({ app }) {
     app.component('Playground', Playground)
     app.component('RealtimeInput', RealtimeInput)
-    startIdsRenderer()
+    // no-op: previously would auto-render IDS inside <code> elements
   },
 }
