@@ -1,6 +1,6 @@
 import { consonantPhonemeMap, vowelPhonemeMap } from './data/phoneme2wordroot'
 
-const CODA_ROOTS = new Set(['⿵冂', '⿵𰃦', '⿹𠃌', '⿹勹'])
+const CODA_ROOTS: ReadonlySet<string> = new Set(['⿵冂', '⿵𰃦', '⿹𠃌', '⿹勹'])
 
 function lookup(phoneme: string): string | null {
   for (const [key, root] of vowelPhonemeMap) {
@@ -13,7 +13,6 @@ function lookup(phoneme: string): string | null {
   }
   for (const [phonemes, root] of consonantPhonemeMap) {
     const pset = Array.isArray(phonemes) ? phonemes : [phonemes]
-    // phonemes may be string | string[]; cast to readonly string[] for .includes
     if ((pset as readonly string[]).includes(phoneme))
       return root
   }
@@ -23,7 +22,6 @@ function lookup(phoneme: string): string | null {
 function isConsonant(phoneme: string): boolean {
   for (const [phonemes] of consonantPhonemeMap) {
     const pset = Array.isArray(phonemes) ? phonemes : [phonemes]
-    // phonemes may be string | string[]; cast to readonly string[] for .includes
     if ((pset as readonly string[]).includes(phoneme))
       return true
   }

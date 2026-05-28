@@ -3,7 +3,7 @@
 import process from 'node:process'
 import { getIdsExps, getInvnz } from '../src/main'
 
-const input = process.argv.slice(2)
+const input: string[] = process.argv.slice(2)
 
 if (input.length === 0) {
   console.error('Usage: invnz <pinyin...>')
@@ -11,7 +11,7 @@ if (input.length === 0) {
 }
 
 for (const pinyin of input) {
-  const idsExps = getIdsExps(pinyin)
-  const invnz = await getInvnz(idsExps)
+  const idsExps: string = getIdsExps(pinyin)
+  const invnz: string = await getInvnz(idsExps)
   console.log(`${pinyin} → ${idsExps} → ${invnz}`)
 }

@@ -1,6 +1,6 @@
 import { m2oMap } from '../tools/m2oMap'
 
-export const vowelPhonemeMap = m2oMap([
+export const vowelPhonemeMap: ReadonlyMap<string, string> = m2oMap([
   /* 介音，后面可能会接其他vowel phoneme */
   [['i', 'yi'], '⿱一'],
   [['u', 'wu'], '⿱五'],
@@ -29,7 +29,7 @@ export const vowelPhonemeMap = m2oMap([
   [['yong', 'iong'], '用'],
 ])
 
-export const consonantPhonemeMap = m2oMap([
+export const consonantPhonemeMap: ReadonlyMap<string, string> = m2oMap([
   // 零声母
   ['', '⿰丨'],
   // 象形

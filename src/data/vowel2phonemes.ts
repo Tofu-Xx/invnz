@@ -1,6 +1,6 @@
 import { m2oMap } from '../tools/m2oMap'
 
-export const vowel2phonemesMap = m2oMap([
+export const vowel2phonemesMap: ReadonlyMap<string, string> = m2oMap([
   // 只做零声母
   ['weng', 'u_eng'],
   // 其他

@@ -1,4 +1,4 @@
-export const pinyinTable: Record<string, string[]> = {
+export const pinyinTable: Record<string, readonly string[]> = {
   zero: [],
   b: ['a', 'o', 'ai', 'ei', 'ao', 'an', 'en', 'ang', 'eng', 'i', 'ie', 'iao', 'ian', 'in', 'ing', 'u'],
   p: ['a', 'o', 'ai', 'ei', 'ao', 'ou', 'an', 'en', 'ang', 'eng', 'i', 'ie', 'iao', 'ian', 'in', 'ing', 'u'],
@@ -21,4 +21,4 @@ export const pinyinTable: Record<string, string[]> = {
   z: ['a', 'e', 'ai', 'ei', 'ao', 'ou', 'an', 'en', 'ang', 'eng', 'i', 'u', 'uo', 'ui', 'uan', 'un', 'ong'],
   c: ['a', 'e', 'ai', 'ao', 'ou', 'an', 'en', 'ang', 'eng', 'i', 'u', 'uo', 'ui', 'uan', 'un', 'ong'],
   s: ['a', 'e', 'ai', 'ei', 'ao', 'ou', 'an', 'en', 'ang', 'eng', 'i', 'u', 'uo', 'ui', 'uan', 'un', 'ong'],
-}
+} as const

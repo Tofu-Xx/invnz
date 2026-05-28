@@ -19,7 +19,7 @@ export function getDirectSyllable(pinyin: string): string | null {
 
   for (const [phoneme, wordroot] of consonantPhonemeMap) {
     const phonemes = Array.isArray(phoneme) ? phoneme : [phoneme]
-    if ((phonemes as string[]).includes(pinyin)) {
+    if ((phonemes as readonly string[]).includes(pinyin)) {
       return stripIdc(wordroot)
     }
   }

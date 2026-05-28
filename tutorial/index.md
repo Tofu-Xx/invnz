@@ -3,7 +3,7 @@ layout: home
 
 hero:
   # name: invnz
-  text: 把拼音变成看得见的汉字
+  text: 汉字的表音书写方案
   tagline: 输入一段拼音，即可获得由汉字部件组合而成的「音韵字」——每个音素都有自己的字形，每个音节都是一幅结构图。
   actions:
     - theme: brand

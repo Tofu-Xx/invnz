@@ -2,15 +2,10 @@ import { vowel2phonemesMap } from './data/vowel2phonemes'
 
 const CONSONANTS = ['zh', 'ch', 'sh', 'b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'r', 'z', 'c', 's'] as const
 
-/** 转换 v → ü */
 function normalize(pinyin: string): string {
   return pinyin.replace(/v/g, 'ü')
 }
 
-/**
- * jqx/zhchsh/zcsr 后省略韵母 i（iong/ie 等整体音素不省略）。
- * 如果 invenma 以 "cons_i_" 开头，去掉 "_i"。
- */
 function dropI(invenma: string): string {
   return invenma.replace(
     /^([jqxr]|zh|ch|sh|[zcs])_i(?=(_|$))/,
