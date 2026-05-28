@@ -187,6 +187,9 @@ e2e/*.map
 
 build/
 
+# Wrangler cache
+.wrangler/
+
 # VitePress cache
 tutorial/.vitepress/cache/
 
