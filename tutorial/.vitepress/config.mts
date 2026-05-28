@@ -17,6 +17,13 @@ export default defineConfig({
       fs: {
         allow: [path.resolve(__dirname, '../..')],
       },
+      proxy: {
+        '/zi': {
+          target: 'http://zu.zi.tools',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/zi/, ''),
+        },
+      },
     },
   },
 
