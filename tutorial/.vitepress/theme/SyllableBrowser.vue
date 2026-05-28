@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { pinyinTable } from '../../../src/data/pinyinTable'
 import { pinyin2invenma } from '../../../src/pinyin2invenma'
-import { getIdsExps } from '@invnz/main'
+import InvnzSvg from './components/InvnzSvg.vue'
 
 const FINALS = [
   'a',
@@ -91,7 +91,7 @@ const all: Syllable[] = []
 for (const f of FINALS) {
   const p = ZERO[f]
   if (p) {
-    all.push({ pinyin: p, invenma: pinyin2invenma(p), invenz: getIdsExps(p) })
+    all.push({ pinyin: p, invenma: pinyin2invenma(p), invenz: p })
   }
 }
 
@@ -102,7 +102,7 @@ for (const [init, finals] of Object.entries(pinyinTable)) {
     const pinyin = 'jqx'.includes(init) && f.startsWith('ü')
       ? init + f.replace('ü', 'u')
       : init + f
-    all.push({ pinyin, invenma: pinyin2invenma(pinyin), invenz: getIdsExps(pinyin) })
+    all.push({ pinyin, invenma: pinyin2invenma(pinyin), invenz: pinyin })
   }
 }
 
@@ -154,7 +154,8 @@ function onSearch() {
         class="sb-card"
       >
         <div class="sb-invnz">
-          {{ s.invenz ?? '—' }}
+          <InvnzSvg v-if="s.invenz" :invenz="s.invenz" :size="48" />
+          <span v-else class="sb-na">—</span>
         </div>
         <div class="sb-label">
           {{ s.pinyin }}<span v-if="s.invenma"> · {{ s.invenma }}</span>
@@ -212,6 +213,11 @@ function onSearch() {
   white-space: nowrap;
 }
 
+.sb-na {
+  color: var(--ink-lighter);
+  font-size: 1em;
+}
+
   .sb-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -239,12 +245,10 @@ function onSearch() {
 }
 
 .sb-invnz {
-  font-family: var(--font-serif), serif;
-  font-size: 1.6em;
-  color: var(--ink-black);
-  line-height: 1.4;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
 }
 
 .sb-label {
