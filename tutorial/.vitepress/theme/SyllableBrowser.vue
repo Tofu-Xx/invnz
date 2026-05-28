@@ -212,13 +212,17 @@ function onSearch() {
   white-space: nowrap;
 }
 
-.sb-grid {
+  .sb-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
 }
 
-.sb-card {
+  .sb-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
