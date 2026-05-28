@@ -118,15 +118,19 @@ const hanziItems = computed<HanziItem[]>(() => {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 32px;
+  padding: 44px 32px 32px; /* 增加顶部内边距，防止 tabs 覆盖边框 */
   margin: 24px 0;
+  position: relative;
 }
 
 .playground-tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 24px;
-  border-bottom: 2px solid var(--border-color);
+  display: inline-flex;
+  gap: 8px;
+  margin-top: -18px; /* 轻微上提以达到悬浮视觉，但仍在文档流中 */
+  padding: 6px 8px;
+  background: var(--card-bg);
+  border-radius: 18px;
+  border-bottom: none;
 }
 
 .playground-tab {
@@ -171,23 +175,24 @@ const hanziItems = computed<HanziItem[]>(() => {
   opacity: 0.6;
 }
 
-.playground-results {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 24px;
-}
+  .playground-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
 
-.pg-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  background: white;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+  .pg-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
 .pg-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0,0,0,0.06);

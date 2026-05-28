@@ -617,6 +617,11 @@ code.ids-rendered:hover svg {
   line-height: 1.8 !important;
 }
 
+/* 迁移注意：避免 Hero 中绝对定位导致 logo 与文字重叠 */
+.VPHomeHero .main { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.VPHomeHero .name { margin: 0; }
+.VPHomeHero .tagline { margin-top: 6px; }
+
 /* ── Feature 网格 ── */
 .VPHomeFeatures .container .items {
   display: flex !important;
