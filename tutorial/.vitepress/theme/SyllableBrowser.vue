@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { pinyinTable } from '@invnz/data/pinyinTable'
-// Avoid eager network fetches; cards will load on scroll if needed
-import { pinyin2invenma } from '@invnz/pinyin2invenma'
 import { computed, ref } from 'vue'
+import { pinyinTable } from '../../../src/data/pinyinTable'
+import { pinyin2invenma } from '../../../src/pinyin2invenma'
 
 const FINALS = [
   'a',

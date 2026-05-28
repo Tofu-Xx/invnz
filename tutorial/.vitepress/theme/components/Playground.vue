@@ -144,11 +144,14 @@ const hanziItems = computed<HanziItem[]>(() => {
   cursor: pointer;
   position: relative;
   transition: color 0.3s;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
+  border-radius: 18px;
+}
+.playground-tab.active {
+  background: var(--vermillion);
+  color: white;
 }
 .playground-tab:hover { color: var(--ink-black); }
-.playground-tab.active { color: var(--vermillion); border-bottom-color: var(--vermillion); }
+.playground-tab.active { color: var(--vermillion); }
 
 .pg-input-wrap { position: relative; }
 

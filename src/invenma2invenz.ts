@@ -87,6 +87,11 @@ function stripIdc(root: string): string {
  * invenma（`_` 分隔的音素串） → invenz（IDS 字根）。
  */
 export function invenma2invenz(invenma: string): string {
+  if (consonantPhonemeMap.has(invenma))
+    return consonantPhonemeMap.get(invenma)!
+  if (vowelPhonemeMap.has(invenma))
+    return vowelPhonemeMap.get(invenma)!
+
   const parts = invenma.split('_')
 
   let cons = ''

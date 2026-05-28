@@ -439,14 +439,17 @@ h1::after {
 
 /* ── 印章装饰（首页专用） ── */
 .home-seal {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 20px auto;
   padding: 8px 16px;
   border: 2px solid var(--vermillion);
   color: var(--vermillion);
   font-family: var(--font-calligraphy), cursive;
   font-size: 24px;
   transform: rotate(-5deg);
-  margin: 20px auto;
 }
 
 /* ── 代码块 ── */

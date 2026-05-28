@@ -104,6 +104,13 @@ import RealtimeInput from './.vitepress/theme/components/RealtimeInput.vue'
 </script>
 
 <style>
+  .name.clip{
+    height:1em;
+  }
+  .actions[data-v-9f7d2fff]{
+    margin:.2em;
+    padding-top:0;
+  }
 .pipeline-section {
   margin: 48px 0;
 }
@@ -175,16 +182,21 @@ import RealtimeInput from './.vitepress/theme/components/RealtimeInput.vue'
 
 .philosophy-section {
   margin: 60px 0;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .philosophy-inner {
   max-width: 640px;
-  margin: 0 auto;
+  width: 100%;
   padding: 40px;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .philosophy-inner::before,
 .philosophy-inner::after {
@@ -230,22 +242,24 @@ import RealtimeInput from './.vitepress/theme/components/RealtimeInput.vue'
 
 .examples-section {
   margin: 48px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .examples-section h2 {
-  text-align: center;
   font-family: var(--font-calligraphy), cursive;
   font-size: 1.8em;
   margin-bottom: 24px;
 }
 .examples-section table {
   max-width: 640px;
-  margin: 0 auto;
 }
 .examples-section td:first-child {
   font-family: var(--font-mono), monospace;
 }
 
 .home-demo {
-  margin: 0 -16px;
+  display: flex;
+  justify-content: center;
 }
 </style>

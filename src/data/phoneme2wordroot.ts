@@ -29,7 +29,7 @@ export const vowelPhonemeMap = m2oMap([
   [['yong', 'iong'], '用'],
 ])
 
-export const consonantPhonemeMap = [
+export const consonantPhonemeMap = m2oMap([
   // 零声母
   ['', '⿰丨'],
   // 象形
@@ -57,4 +57,4 @@ export const consonantPhonemeMap = [
   [['zh', 'zhi'], '⿱止'],
   [['ch', 'chi'], '⿱尺'],
   [['sh', 'shi'], '⿸尸'],
-] as const
+])
