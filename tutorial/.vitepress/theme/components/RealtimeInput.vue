@@ -175,7 +175,7 @@ const hanziResults = computed<HanziResult[]>(() => {
 
  .rt-results {
    display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+   grid-template-columns: repeat(auto-fill, 180px);
    gap: 16px;
    margin-top: 28px;
  }

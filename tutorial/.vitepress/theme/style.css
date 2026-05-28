@@ -647,6 +647,35 @@ code.ids-rendered:hover svg {
 .VPHomeHero .name { margin: 0; }
 .VPHomeHero .tagline { margin-top: 6px; }
 
+/* 暗色覆写：原本硬编码白色的元素改用变量 */
+.dark .vp-doc code {
+  background: var(--vp-c-bg-soft) !important;
+  color: var(--vermillion-light) !important;
+}
+.dark .step-example {
+  background: var(--vp-c-bg-soft) !important;
+}
+.dark .playground-input,
+.dark .rt-input,
+.dark .sb-input {
+  background: var(--card-bg) !important;
+  color: var(--ink-black) !important;
+  border-color: var(--border-color) !important;
+}
+.dark .pg-item,
+.dark .rt-result-item {
+  background: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+}
+.dark .pg-label,
+.dark .rt-result-label {
+  color: var(--ink-lighter) !important;
+}
+.dark .pg-hint,
+.dark .rt-hint {
+  color: var(--ink-lighter) !important;
+}
+
 /* ── Feature 网格 ── */
 .VPHomeFeatures .container .items {
   display: flex !important;

@@ -177,7 +177,7 @@ const hanziItems = computed<HanziItem[]>(() => {
 
   .playground-results {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, 240px);
     gap: 12px;
     margin-top: 24px;
   }
