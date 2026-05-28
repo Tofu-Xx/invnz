@@ -6,6 +6,7 @@ on:
     paths:
       - 'tutorial/**'
       - '.vitepress/**'
+      - 'functions/**'
       - '.github/workflows/**'
       - pnpm-lock.yaml
 
