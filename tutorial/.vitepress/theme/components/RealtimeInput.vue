@@ -142,10 +142,11 @@ const hanziResults = computed<HanziResult[]>(() => {
   cursor: pointer;
   position: relative;
   transition: color 0.3s;
-  border-radius: 18px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
 }
 .rt-tab:hover { color: var(--ink-black); }
-.rt-tab.active { background: var(--vermillion); color: white; }
+.rt-tab.active { color: var(--vermillion); border-bottom-color: var(--vermillion); }
 
 .rt-input-wrap { position: relative; }
 

@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: invnz
+  # name: invnz
   text: 把拼音变成看得见的汉字
   tagline: 输入一段拼音，即可获得由汉字部件组合而成的「音韵字」——每个音素都有自己的字形，每个音节都是一幅结构图。
   actions:
@@ -105,12 +105,18 @@ import RealtimeInput from './.vitepress/theme/components/RealtimeInput.vue'
 
 <style>
   .name.clip{
-    height:1em;
+    height:0.6em;
   }
   .actions[data-v-9f7d2fff]{
     margin:.2em;
     padding-top:0;
   }
+
+.VPFeatures.VPHomeFeatures {
+    padding-top: 1em;
+}
+
+
 .pipeline-section {
   margin: 48px 0;
 }
@@ -182,21 +188,16 @@ import RealtimeInput from './.vitepress/theme/components/RealtimeInput.vue'
 
 .philosophy-section {
   margin: 60px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 .philosophy-inner {
   max-width: 640px;
-  width: 100%;
+  margin: 0 auto;
   padding: 40px;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .philosophy-inner::before,
 .philosophy-inner::after {
@@ -242,24 +243,22 @@ import RealtimeInput from './.vitepress/theme/components/RealtimeInput.vue'
 
 .examples-section {
   margin: 48px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 .examples-section h2 {
+  text-align: center;
   font-family: var(--font-calligraphy), cursive;
   font-size: 1.8em;
   margin-bottom: 24px;
 }
 .examples-section table {
   max-width: 640px;
+  margin: 0 auto;
 }
 .examples-section td:first-child {
   font-family: var(--font-mono), monospace;
 }
 
 .home-demo {
-  display: flex;
-  justify-content: center;
+  margin: 0 -16px;
 }
 </style>
