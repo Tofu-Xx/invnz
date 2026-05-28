@@ -675,6 +675,18 @@ code.ids-rendered:hover svg {
 .dark .rt-hint {
   color: var(--ink-lighter) !important;
 }
+.dark .vp-doc blockquote {
+  background: var(--vp-c-bg-soft) !important;
+}
+.dark .custom-block.tip {
+  background: rgba(178,34,34,0.08) !important;
+}
+.dark .vp-doc div[class*=language-] {
+  background: var(--card-bg) !important;
+}
+.dark .playground-output {
+  background: var(--card-bg) !important;
+}
 
 /* ── Feature 网格 ── */
 .VPHomeFeatures .container .items {
