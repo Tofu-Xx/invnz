@@ -116,16 +116,19 @@ const hanziResults = computed<HanziResult[]>(() => {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 32px;
+  padding: 44px 32px 32px; /* 增加顶部内边距以避免 tabs 覆盖 */
   margin: 32px 0;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  position: relative;
 }
 
 .rt-tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 24px;
-  border-bottom: 2px solid var(--border-color);
+  display: inline-flex;
+  gap: 8px;
+  margin-top: -18px;
+  padding: 6px 8px;
+  background: var(--card-bg);
+  border-radius: 18px;
 }
 
 .rt-tab {
@@ -170,12 +173,12 @@ const hanziResults = computed<HanziResult[]>(() => {
   opacity: 0.6;
 }
 
-.rt-results {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 28px;
-}
+ .rt-results {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+   gap: 16px;
+   margin-top: 28px;
+ }
 
 .rt-result-item {
   display: flex;
