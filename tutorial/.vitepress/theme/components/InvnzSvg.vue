@@ -121,8 +121,13 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: var(--ink-black);
 }
 .invnz-svg :deep(svg) {
   display: block;
+}
+.invnz-svg :deep(svg *) {
+  fill: currentColor;
+  stroke: currentColor;
 }
 </style>
