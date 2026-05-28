@@ -123,10 +123,10 @@ const hanziItems = computed<HanziItem[]>(() => {
   position: relative;
 }
 
-.playground-tabs {
+  .playground-tabs {
   display: inline-flex;
   gap: 8px;
-  margin-top: -18px; /* 轻微上提以达到悬浮视觉，但仍在文档流中 */
+  margin-top: 0; /* 取消负 margin，使用容器 padding 保证空间 */
   padding: 6px 8px;
   background: var(--card-bg);
   border-radius: 18px;

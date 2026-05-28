@@ -122,10 +122,10 @@ const hanziResults = computed<HanziResult[]>(() => {
   position: relative;
 }
 
-.rt-tabs {
+  .rt-tabs {
   display: inline-flex;
   gap: 8px;
-  margin-top: -18px;
+  margin-top: 0;
   padding: 6px 8px;
   background: var(--card-bg);
   border-radius: 18px;
