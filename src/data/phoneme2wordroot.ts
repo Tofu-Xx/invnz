@@ -56,5 +56,5 @@ export const consonantPhonemeMap: ReadonlyMap<string, string> = m2oMap([
   [['r', 'ri'], '⿰日'],
   [['zh', 'zhi'], '⿱止'],
   [['ch', 'chi'], '⿱尺'],
-  [['sh', 'shi'], '⿸尸'],
+  [['sh', 'shi'], '⿱士'],
 ])
